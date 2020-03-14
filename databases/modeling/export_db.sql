@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 11.5
+-- Dumped from database version 12.2
 -- Dumped by pg_dump version 12.2
 
--- Started on 2020-03-13 11:04:45 WET
+-- Started on 2020-03-14 10:39:00 WET
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -20,8 +20,10 @@ SET row_security = off;
 
 SET default_tablespace = '';
 
+SET default_table_access_method = heap;
+
 --
--- TOC entry 196 (class 1259 OID 16814)
+-- TOC entry 202 (class 1259 OID 16814)
 -- Name: Moves; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -35,7 +37,7 @@ CREATE TABLE public."Moves" (
 ALTER TABLE public."Moves" OWNER TO postgres;
 
 --
--- TOC entry 197 (class 1259 OID 16817)
+-- TOC entry 203 (class 1259 OID 16817)
 -- Name: Moves_MoveID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -51,8 +53,8 @@ CREATE SEQUENCE public."Moves_MoveID_seq"
 ALTER TABLE public."Moves_MoveID_seq" OWNER TO postgres;
 
 --
--- TOC entry 3253 (class 0 OID 0)
--- Dependencies: 197
+-- TOC entry 3261 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: Moves_MoveID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -60,7 +62,7 @@ ALTER SEQUENCE public."Moves_MoveID_seq" OWNED BY public."Moves"."MoveID";
 
 
 --
--- TOC entry 198 (class 1259 OID 16819)
+-- TOC entry 204 (class 1259 OID 16819)
 -- Name: PokemonMove; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -77,7 +79,7 @@ CREATE TABLE public."PokemonMove" (
 ALTER TABLE public."PokemonMove" OWNER TO postgres;
 
 --
--- TOC entry 199 (class 1259 OID 16822)
+-- TOC entry 205 (class 1259 OID 16822)
 -- Name: PokemonMove_PokemonMoveID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -93,8 +95,8 @@ CREATE SEQUENCE public."PokemonMove_PokemonMoveID_seq"
 ALTER TABLE public."PokemonMove_PokemonMoveID_seq" OWNER TO postgres;
 
 --
--- TOC entry 3254 (class 0 OID 0)
--- Dependencies: 199
+-- TOC entry 3262 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: PokemonMove_PokemonMoveID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -102,7 +104,7 @@ ALTER SEQUENCE public."PokemonMove_PokemonMoveID_seq" OWNED BY public."PokemonMo
 
 
 --
--- TOC entry 200 (class 1259 OID 16824)
+-- TOC entry 206 (class 1259 OID 16824)
 -- Name: Pokemons; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -126,7 +128,7 @@ CREATE TABLE public."Pokemons" (
 ALTER TABLE public."Pokemons" OWNER TO postgres;
 
 --
--- TOC entry 201 (class 1259 OID 16827)
+-- TOC entry 207 (class 1259 OID 16827)
 -- Name: Pokemons_PokemonID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -142,8 +144,8 @@ CREATE SEQUENCE public."Pokemons_PokemonID_seq"
 ALTER TABLE public."Pokemons_PokemonID_seq" OWNER TO postgres;
 
 --
--- TOC entry 3255 (class 0 OID 0)
--- Dependencies: 201
+-- TOC entry 3263 (class 0 OID 0)
+-- Dependencies: 207
 -- Name: Pokemons_PokemonID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -151,7 +153,7 @@ ALTER SEQUENCE public."Pokemons_PokemonID_seq" OWNED BY public."Pokemons"."Pokem
 
 
 --
--- TOC entry 202 (class 1259 OID 16829)
+-- TOC entry 208 (class 1259 OID 16829)
 -- Name: Regions; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -165,7 +167,7 @@ CREATE TABLE public."Regions" (
 ALTER TABLE public."Regions" OWNER TO postgres;
 
 --
--- TOC entry 203 (class 1259 OID 16832)
+-- TOC entry 209 (class 1259 OID 16832)
 -- Name: Regions_RegionID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -181,8 +183,8 @@ CREATE SEQUENCE public."Regions_RegionID_seq"
 ALTER TABLE public."Regions_RegionID_seq" OWNER TO postgres;
 
 --
--- TOC entry 3256 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3264 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: Regions_RegionID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -190,7 +192,7 @@ ALTER SEQUENCE public."Regions_RegionID_seq" OWNED BY public."Regions"."RegionID
 
 
 --
--- TOC entry 204 (class 1259 OID 16834)
+-- TOC entry 210 (class 1259 OID 16834)
 -- Name: Trades; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -213,7 +215,7 @@ CREATE TABLE public."Trades" (
 ALTER TABLE public."Trades" OWNER TO postgres;
 
 --
--- TOC entry 205 (class 1259 OID 16840)
+-- TOC entry 211 (class 1259 OID 16840)
 -- Name: Trades_TradeID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -229,8 +231,8 @@ CREATE SEQUENCE public."Trades_TradeID_seq"
 ALTER TABLE public."Trades_TradeID_seq" OWNER TO postgres;
 
 --
--- TOC entry 3257 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3265 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: Trades_TradeID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -238,7 +240,7 @@ ALTER SEQUENCE public."Trades_TradeID_seq" OWNED BY public."Trades"."TradeID";
 
 
 --
--- TOC entry 206 (class 1259 OID 16842)
+-- TOC entry 212 (class 1259 OID 16842)
 -- Name: Users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -246,14 +248,15 @@ CREATE TABLE public."Users" (
     "UserID" integer NOT NULL,
     "Username" character varying(100) NOT NULL,
     "Team" character varying(10),
-    "Level" smallint
+    "Level" smallint,
+    "PasswordHash" text
 );
 
 
 ALTER TABLE public."Users" OWNER TO postgres;
 
 --
--- TOC entry 207 (class 1259 OID 16845)
+-- TOC entry 213 (class 1259 OID 16845)
 -- Name: Users_UserID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -269,8 +272,8 @@ CREATE SEQUENCE public."Users_UserID_seq"
 ALTER TABLE public."Users_UserID_seq" OWNER TO postgres;
 
 --
--- TOC entry 3258 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3266 (class 0 OID 0)
+-- Dependencies: 213
 -- Name: Users_UserID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -278,7 +281,7 @@ ALTER SEQUENCE public."Users_UserID_seq" OWNED BY public."Users"."UserID";
 
 
 --
--- TOC entry 3088 (class 2604 OID 16847)
+-- TOC entry 3091 (class 2604 OID 16404)
 -- Name: Moves MoveID; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -286,7 +289,7 @@ ALTER TABLE ONLY public."Moves" ALTER COLUMN "MoveID" SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 3089 (class 2604 OID 16848)
+-- TOC entry 3092 (class 2604 OID 16405)
 -- Name: PokemonMove PokemonMoveID; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -294,7 +297,7 @@ ALTER TABLE ONLY public."PokemonMove" ALTER COLUMN "PokemonMoveID" SET DEFAULT n
 
 
 --
--- TOC entry 3090 (class 2604 OID 16849)
+-- TOC entry 3093 (class 2604 OID 16406)
 -- Name: Pokemons PokemonID; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -302,7 +305,7 @@ ALTER TABLE ONLY public."Pokemons" ALTER COLUMN "PokemonID" SET DEFAULT nextval(
 
 
 --
--- TOC entry 3091 (class 2604 OID 16850)
+-- TOC entry 3094 (class 2604 OID 16407)
 -- Name: Regions RegionID; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -310,7 +313,7 @@ ALTER TABLE ONLY public."Regions" ALTER COLUMN "RegionID" SET DEFAULT nextval('p
 
 
 --
--- TOC entry 3092 (class 2604 OID 16851)
+-- TOC entry 3095 (class 2604 OID 16408)
 -- Name: Trades TradeID; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -318,7 +321,7 @@ ALTER TABLE ONLY public."Trades" ALTER COLUMN "TradeID" SET DEFAULT nextval('pub
 
 
 --
--- TOC entry 3093 (class 2604 OID 16852)
+-- TOC entry 3096 (class 2604 OID 16409)
 -- Name: Users UserID; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -326,8 +329,8 @@ ALTER TABLE ONLY public."Users" ALTER COLUMN "UserID" SET DEFAULT nextval('publi
 
 
 --
--- TOC entry 3236 (class 0 OID 16814)
--- Dependencies: 196
+-- TOC entry 3244 (class 0 OID 16814)
+-- Dependencies: 202
 -- Data for Name: Moves; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -336,8 +339,8 @@ COPY public."Moves" ("MoveID", "Type", "Name") FROM stdin;
 
 
 --
--- TOC entry 3238 (class 0 OID 16819)
--- Dependencies: 198
+-- TOC entry 3246 (class 0 OID 16819)
+-- Dependencies: 204
 -- Data for Name: PokemonMove; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -346,8 +349,8 @@ COPY public."PokemonMove" ("PokemonMoveID", "PokemonID", "Legacy", "FastMoveID",
 
 
 --
--- TOC entry 3240 (class 0 OID 16824)
--- Dependencies: 200
+-- TOC entry 3248 (class 0 OID 16824)
+-- Dependencies: 206
 -- Data for Name: Pokemons; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -356,8 +359,8 @@ COPY public."Pokemons" ("PokemonID", "Pokedex", "Name", "Type1", "Type2", "Alola
 
 
 --
--- TOC entry 3242 (class 0 OID 16829)
--- Dependencies: 202
+-- TOC entry 3250 (class 0 OID 16829)
+-- Dependencies: 208
 -- Data for Name: Regions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -366,8 +369,8 @@ COPY public."Regions" ("RegionID", "Name", "Generation") FROM stdin;
 
 
 --
--- TOC entry 3244 (class 0 OID 16834)
--- Dependencies: 204
+-- TOC entry 3252 (class 0 OID 16834)
+-- Dependencies: 210
 -- Data for Name: Trades; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -376,18 +379,18 @@ COPY public."Trades" ("TradeID", "Trainer1ID", "Trainer2ID", "Pokemon1ID", "Poke
 
 
 --
--- TOC entry 3246 (class 0 OID 16842)
--- Dependencies: 206
+-- TOC entry 3254 (class 0 OID 16842)
+-- Dependencies: 212
 -- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public."Users" ("UserID", "Username", "Team", "Level") FROM stdin;
+COPY public."Users" ("UserID", "Username", "Team", "Level", "PasswordHash") FROM stdin;
 \.
 
 
 --
--- TOC entry 3259 (class 0 OID 0)
--- Dependencies: 197
+-- TOC entry 3267 (class 0 OID 0)
+-- Dependencies: 203
 -- Name: Moves_MoveID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -395,8 +398,8 @@ SELECT pg_catalog.setval('public."Moves_MoveID_seq"', 1, false);
 
 
 --
--- TOC entry 3260 (class 0 OID 0)
--- Dependencies: 199
+-- TOC entry 3268 (class 0 OID 0)
+-- Dependencies: 205
 -- Name: PokemonMove_PokemonMoveID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -404,8 +407,8 @@ SELECT pg_catalog.setval('public."PokemonMove_PokemonMoveID_seq"', 1, false);
 
 
 --
--- TOC entry 3261 (class 0 OID 0)
--- Dependencies: 201
+-- TOC entry 3269 (class 0 OID 0)
+-- Dependencies: 207
 -- Name: Pokemons_PokemonID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -413,8 +416,8 @@ SELECT pg_catalog.setval('public."Pokemons_PokemonID_seq"', 1, false);
 
 
 --
--- TOC entry 3262 (class 0 OID 0)
--- Dependencies: 203
+-- TOC entry 3270 (class 0 OID 0)
+-- Dependencies: 209
 -- Name: Regions_RegionID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -422,8 +425,8 @@ SELECT pg_catalog.setval('public."Regions_RegionID_seq"', 1, false);
 
 
 --
--- TOC entry 3263 (class 0 OID 0)
--- Dependencies: 205
+-- TOC entry 3271 (class 0 OID 0)
+-- Dependencies: 211
 -- Name: Trades_TradeID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -431,8 +434,8 @@ SELECT pg_catalog.setval('public."Trades_TradeID_seq"', 1, false);
 
 
 --
--- TOC entry 3264 (class 0 OID 0)
--- Dependencies: 207
+-- TOC entry 3272 (class 0 OID 0)
+-- Dependencies: 213
 -- Name: Users_UserID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -440,7 +443,7 @@ SELECT pg_catalog.setval('public."Users_UserID_seq"', 1, false);
 
 
 --
--- TOC entry 3095 (class 2606 OID 16854)
+-- TOC entry 3098 (class 2606 OID 16410)
 -- Name: Moves Moves_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -449,7 +452,7 @@ ALTER TABLE ONLY public."Moves"
 
 
 --
--- TOC entry 3099 (class 2606 OID 16856)
+-- TOC entry 3102 (class 2606 OID 16412)
 -- Name: Pokemons PokemonID_PK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -458,7 +461,7 @@ ALTER TABLE ONLY public."Pokemons"
 
 
 --
--- TOC entry 3097 (class 2606 OID 16858)
+-- TOC entry 3100 (class 2606 OID 16413)
 -- Name: PokemonMove PokemonMoveID_PK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -467,7 +470,7 @@ ALTER TABLE ONLY public."PokemonMove"
 
 
 --
--- TOC entry 3101 (class 2606 OID 16860)
+-- TOC entry 3104 (class 2606 OID 16414)
 -- Name: Regions Regions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -476,7 +479,7 @@ ALTER TABLE ONLY public."Regions"
 
 
 --
--- TOC entry 3103 (class 2606 OID 16862)
+-- TOC entry 3106 (class 2606 OID 16415)
 -- Name: Trades Trades_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -485,7 +488,7 @@ ALTER TABLE ONLY public."Trades"
 
 
 --
--- TOC entry 3105 (class 2606 OID 16864)
+-- TOC entry 3108 (class 2606 OID 16416)
 -- Name: Users Users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -494,7 +497,7 @@ ALTER TABLE ONLY public."Users"
 
 
 --
--- TOC entry 3106 (class 2606 OID 16865)
+-- TOC entry 3109 (class 2606 OID 16417)
 -- Name: PokemonMove ChargeMove1ID_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -503,7 +506,7 @@ ALTER TABLE ONLY public."PokemonMove"
 
 
 --
--- TOC entry 3107 (class 2606 OID 16870)
+-- TOC entry 3110 (class 2606 OID 16422)
 -- Name: PokemonMove ChargeMove2ID_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -512,7 +515,7 @@ ALTER TABLE ONLY public."PokemonMove"
 
 
 --
--- TOC entry 3108 (class 2606 OID 16875)
+-- TOC entry 3111 (class 2606 OID 16427)
 -- Name: PokemonMove FastMoveID_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -521,7 +524,7 @@ ALTER TABLE ONLY public."PokemonMove"
 
 
 --
--- TOC entry 3111 (class 2606 OID 16880)
+-- TOC entry 3114 (class 2606 OID 16432)
 -- Name: Trades Pokemon1ID_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -530,7 +533,7 @@ ALTER TABLE ONLY public."Trades"
 
 
 --
--- TOC entry 3112 (class 2606 OID 16885)
+-- TOC entry 3115 (class 2606 OID 16437)
 -- Name: Trades Pokemon2ID_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -539,7 +542,7 @@ ALTER TABLE ONLY public."Trades"
 
 
 --
--- TOC entry 3109 (class 2606 OID 16890)
+-- TOC entry 3112 (class 2606 OID 16442)
 -- Name: PokemonMove PokemonID_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -548,7 +551,7 @@ ALTER TABLE ONLY public."PokemonMove"
 
 
 --
--- TOC entry 3110 (class 2606 OID 16895)
+-- TOC entry 3113 (class 2606 OID 16447)
 -- Name: Pokemons Pokemons_RegionID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -557,7 +560,7 @@ ALTER TABLE ONLY public."Pokemons"
 
 
 --
--- TOC entry 3113 (class 2606 OID 16900)
+-- TOC entry 3116 (class 2606 OID 16452)
 -- Name: Trades Trainer1ID_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -566,7 +569,7 @@ ALTER TABLE ONLY public."Trades"
 
 
 --
--- TOC entry 3114 (class 2606 OID 16905)
+-- TOC entry 3117 (class 2606 OID 16457)
 -- Name: Trades Trainer2ID_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -574,7 +577,7 @@ ALTER TABLE ONLY public."Trades"
     ADD CONSTRAINT "Trainer2ID_FK" FOREIGN KEY ("Trainer2ID") REFERENCES public."Users"("UserID") NOT VALID;
 
 
--- Completed on 2020-03-13 11:04:45 WET
+-- Completed on 2020-03-14 10:39:00 WET
 
 --
 -- PostgreSQL database dump complete
