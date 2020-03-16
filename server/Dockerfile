@@ -4,7 +4,7 @@ WORKDIR /server
 
 RUN apt-get update
 
-COPY package*.json ./
+COPY package*.json yarn.lock ./
 
 RUN yarn
 RUN yarn global add nodemon
