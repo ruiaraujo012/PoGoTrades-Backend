@@ -1,12 +1,35 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const Sequelize = require("sequelize");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
 
-var app = express();
+const app = express();
+
+/*
+ * Database connection
+ */
+
+console.log("Trying to connect [POSTGRES]");
+
+const sequelize = new Sequelize(
+  process.env.POSTGRES_DB,
+  process.env.POSTGRES_USER,
+  process.env.POSTGRES_PASSWORD,
+  {
+    host: process.env.POSTGRES_HOST,
+    dialect: "postgres"
+  }
+);
+
+try {
+  sequelize.authenticate();
+  console.log("Connection to [POSTGRES] has been established successfully.");
+} catch (err) {
+  console.error("Unable to connect to the database:", err);
+}
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -14,7 +37,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/v1/", indexRouter);
 
 module.exports = app;
