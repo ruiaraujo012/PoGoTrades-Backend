@@ -1,6 +1,8 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "description": "React app to consume PoGoTrades API",
+  "author": "Rui Araújo <ruiaraujo012@gmail.com>",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "5.1.1",
