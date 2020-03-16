@@ -1,15 +1,15 @@
 FROM node:latest
 
-WORKDIR /app
+WORKDIR /server
 
 COPY package*.json ./
 
 RUN yarn
 RUN yarn global add nodemon
 
-COPY . ./
+COPY . .
 
-EXPOSE 8000
+EXPOSE 8080
 
 # Change to yarn start for deploy
 CMD ["nodemon"]

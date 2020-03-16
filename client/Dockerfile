@@ -1,14 +1,13 @@
 FROM node:latest
 
-WORKDIR /app
+WORKDIR /client
 
-COPY package*.json ./
-COPY yarn.lock ./
+COPY package*.json yarn.lock ./
 
 RUN yarn
-RUN yarn global add react-scripts
+# RUN yarn global add react-scripts
 
-COPY . ./
+COPY . .
 
 EXPOSE 3000
 
