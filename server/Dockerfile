@@ -2,6 +2,8 @@ FROM node:latest
 
 WORKDIR /server
 
+RUN apt-get update
+
 COPY package*.json ./
 
 RUN yarn

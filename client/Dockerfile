@@ -2,6 +2,8 @@ FROM node:latest
 
 WORKDIR /client
 
+RUN apt-get update
+
 COPY package*.json yarn.lock ./
 
 RUN yarn

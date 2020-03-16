@@ -6,9 +6,27 @@ services:
       - "3000:3000"
     volumes:
       - ./client:/client
+
   server:
     build: ./server
     ports:
       - "8000:8000"
     volumes:
       - ./server:/server
+    depends_on:
+      - database
+    command: ["./wait-for-it.sh", "database:5432", "--", "nodemon"]
+
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: PoGoTrades
+    volumes:
+      - ~/databases/PoGoTrades:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
