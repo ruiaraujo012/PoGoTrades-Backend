@@ -10,6 +10,8 @@ const sequelize = require("./configs/database");
 
 const app = express();
 
+const RECREATE_DB = true;
+
 /*
  * Database connection
  */
@@ -19,6 +21,11 @@ console.log("Trying to connect [POSTGRES]");
 try {
   sequelize.authenticate();
   console.log("Connection to [POSTGRES] has been established successfully.");
+
+  if (RECREATE_DB) {
+    console.log("Recreating database!");
+    sequelize.sync({ force: true });
+  }
 } catch (err) {
   console.error("Unable to connect to the database:", err);
 }
