@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../configs/database");
 
-const Region = sequelize.define(
-  "Regions",
+const Move = sequelize.define(
+  "Moves",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -10,16 +10,16 @@ const Region = sequelize.define(
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    type: {
       type: Sequelize.STRING(50),
       allowNull: false
     },
-    generation: {
-      type: Sequelize.SMALLINT.UNSIGNED,
+    name: {
+      type: Sequelize.STRING(100),
       allowNull: false
     }
   },
   {}
 );
 
-module.exports = Region;
+module.exports = Move;

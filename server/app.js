@@ -6,7 +6,7 @@ const Sequelize = require("sequelize");
 
 const indexRouter = require("./routes/index");
 
-const sequelize = require("./configs/database");
+const db = require("./configs/database");
 
 const app = express();
 
@@ -19,12 +19,12 @@ const RECREATE_DB = true;
 console.log("Trying to connect [POSTGRES]");
 
 try {
-  sequelize.authenticate();
+  db.authenticate();
   console.log("Connection to [POSTGRES] has been established successfully.");
 
   if (RECREATE_DB) {
     console.log("Recreating database!");
-    sequelize.sync({ force: true });
+    db.sync({ force: true });
   }
 } catch (err) {
   console.error("Unable to connect to the database:", err);

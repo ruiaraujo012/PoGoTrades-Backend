@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../configs/database");
 
-const Region = sequelize.define(
-  "Regions",
+const Type = sequelize.define(
+  "Types",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -13,13 +13,9 @@ const Region = sequelize.define(
     name: {
       type: Sequelize.STRING(50),
       allowNull: false
-    },
-    generation: {
-      type: Sequelize.SMALLINT.UNSIGNED,
-      allowNull: false
     }
   },
   {}
 );
 
-module.exports = Region;
+module.exports = Type;

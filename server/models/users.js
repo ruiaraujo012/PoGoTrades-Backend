@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-
 const sequelize = require("../configs/database");
 
 const User = sequelize.define(
@@ -9,7 +8,8 @@ const User = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
+      unique: true
     },
     username: {
       type: Sequelize.STRING(50),
