@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 
+const sequelize = require("./configs/database");
+
 const User = sequelize.define(
   "Users",
   {
@@ -35,3 +37,5 @@ const User = sequelize.define(
   },
   {}
 );
+
+module.exports = User;
