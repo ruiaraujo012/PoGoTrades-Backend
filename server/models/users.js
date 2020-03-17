@@ -5,7 +5,6 @@ const sequelize = require("../configs/database");
 const User = sequelize.define(
   "Users",
   {
-    // attributes
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
