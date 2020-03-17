@@ -6,6 +6,8 @@ const Sequelize = require("sequelize");
 
 const indexRouter = require("./routes/index");
 
+const sequelize = require("./configs/database");
+
 const app = express();
 
 /*
@@ -13,16 +15,6 @@ const app = express();
  */
 
 console.log("Trying to connect [POSTGRES]");
-
-const sequelize = new Sequelize(
-  process.env.POSTGRES_DB,
-  process.env.POSTGRES_USER,
-  process.env.POSTGRES_PASSWORD,
-  {
-    host: process.env.POSTGRES_HOST,
-    dialect: "postgres"
-  }
-);
 
 try {
   sequelize.authenticate();
