@@ -21,7 +21,7 @@ const User = sequelize.define(
       defaultValue: "Harmony"
     },
     level: {
-      type: Sequelize.SMALLINT.UNSIGNED,
+      type: Sequelize.SMALLINT,
       allowNull: false,
       defaultValue: 0,
       validate: {

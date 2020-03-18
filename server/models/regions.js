@@ -15,7 +15,7 @@ const Region = sequelize.define(
       allowNull: false
     },
     generation: {
-      type: Sequelize.SMALLINT.UNSIGNED,
+      type: Sequelize.SMALLINT,
       allowNull: false
     }
   },

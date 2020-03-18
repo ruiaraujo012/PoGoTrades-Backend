@@ -11,7 +11,7 @@ const Pokemon = sequelize.define(
       autoIncrement: true
     },
     pokedex: {
-      type: Sequelize.SMALLINT.UNSIGNED,
+      type: Sequelize.SMALLINT,
       allowNull: false
     },
     name: {

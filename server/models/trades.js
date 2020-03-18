@@ -30,7 +30,7 @@ const Trade = sequelize.define(
       defaultValue: true
     },
     friendshipLevel: {
-      type: Sequelize.SMALLINT.UNSIGNED,
+      type: Sequelize.SMALLINT,
       allowNull: false,
       defaultValue: 0,
       validate: {
