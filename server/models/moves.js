@@ -1,7 +1,8 @@
 const Sequelize = require("sequelize");
-const sequelize = require("../configs/database");
+const db = require("./index").sequelize;
+console.log("db :", db);
 
-const Move = sequelize.define(
+const Move = db.define(
   "Moves",
   {
     id: {

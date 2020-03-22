@@ -2,11 +2,10 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-const Sequelize = require("sequelize");
+
+const db = require("./config/config").sequelize;
 
 const indexRouter = require("./routes/index");
-
-const db = require("./configs/database");
 
 const app = express();
 
