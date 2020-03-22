@@ -1,26 +1,28 @@
-const Sequelize = require("sequelize");
-const db = require("./index").sequelize;
-console.log("db :", db);
+"use strict";
 
-const Move = db.define(
-  "Moves",
-  {
-    id: {
+module.exports = (sequelize, Sequelize) => {
+  const Move = sequelize.define("Move", {
+    Id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    type: {
-      type: Sequelize.STRING(50),
-      allowNull: false
-    },
-    name: {
+    Name: {
       type: Sequelize.STRING(100),
       allowNull: false
     }
-  },
-  {}
-);
+  });
 
-module.exports = Move;
+  // Move.associate = models => {
+  //   models.Move.belongsTo(models.Type, {
+  //     foreignKey: {
+  //       allowNull: false
+  //     }
+  //   });
+
+  //   models.Move.belongsToMany(models.Pokemon, { through: "PokemonMove" });
+  // };
+
+  return Move;
+};

@@ -1,71 +1,80 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../configs/database");
+"use strict";
 
-const Pokemon = sequelize.define(
-  "Pokemons",
-  {
-    id: {
+module.exports = (sequelize, Sequelize) => {
+  const Pokemon = sequelize.define("Pokemon", {
+    Id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    pokedex: {
+    Pokedex: {
       type: Sequelize.SMALLINT,
       allowNull: false
     },
-    name: {
+    Name: {
       type: Sequelize.STRING(100),
       allowNull: false
     },
-    alolan: {
+    Alolan: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
     },
-    shiny: {
+    Shiny: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
     },
-    regional: {
+    Regional: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
     },
-    purified: {
+    Purified: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
     },
-    baby: {
+    Baby: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
     },
-    canBeTraded: {
+    CanBeTraded: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: true
     },
-    category: {
+    Category: {
       type: Sequelize.ENUM("Common", "Legendary", "Mythical"),
       allowNull: false,
       defaultValue: "Common"
-    },
-    regionID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    type1ID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    type2ID: {
-      type: Sequelize.INTEGER
     }
-  },
-  {}
-);
+  });
 
-module.exports = Pokemon;
+  // Pokemon.associate = models => {
+  //   models.Pokemon.hasMany(models.PokemonMove, {
+  //     foreignKey: {
+  //       name: "FastMoveId"
+  //       // allowNull: false
+  //     }
+  //   });
+
+  //   models.Pokemon.hasMany(models.PokemonMove, {
+  //     foreignKey: {
+  //       name: "ChargeMove1Id"
+  //       // allowNull: false
+  //     }
+  //   });
+
+  //   models.Pokemon.hasMany(models.PokemonMove, {
+  //     foreignKey: {
+  //       name: "ChargeMove2Id"
+  //       // allowNull: false
+  //     }
+  //   });
+  // };
+
+  return Pokemon;
+};

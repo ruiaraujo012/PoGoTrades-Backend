@@ -1,25 +1,22 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../configs/database");
+"use strict";
 
-const Region = sequelize.define(
-  "Regions",
-  {
-    id: {
+module.exports = (sequelize, Sequelize) => {
+  const Region = sequelize.define("Region", {
+    Id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    Name: {
       type: Sequelize.STRING(50),
       allowNull: false
     },
-    generation: {
+    Generation: {
       type: Sequelize.SMALLINT,
       allowNull: false
     }
-  },
-  {}
-);
+  });
 
-module.exports = Region;
+  return Region;
+};

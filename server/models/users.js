@@ -1,26 +1,25 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../configs/database");
+"use strict";
 
-const User = sequelize.define(
-  "Users",
-  {
-    id: {
+module.exports = (sequelize, Sequelize) => {
+  const User = sequelize.define("User", {
+    Id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
       unique: true
     },
-    username: {
+    Username: {
       type: Sequelize.STRING(50),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
-    team: {
+    Team: {
       type: Sequelize.ENUM("Instinct", "Mystic", "Valor", "Harmony"),
       allowNull: false,
       defaultValue: "Harmony"
     },
-    level: {
+    Level: {
       type: Sequelize.SMALLINT,
       allowNull: false,
       defaultValue: 0,
@@ -29,12 +28,27 @@ const User = sequelize.define(
         max: 40
       }
     },
-    passwordHash: {
+    PasswordHash: {
       type: Sequelize.TEXT,
       allowNull: true
     }
-  },
-  {}
-);
+  });
 
-module.exports = User;
+  User.associate = models => {
+    models.User.hasMany(models.Trade, {
+      foreignKey: {
+        name: "Trainer1Id",
+        allowNull: true
+      }
+    });
+
+    models.User.hasMany(models.Trade, {
+      foreignKey: {
+        name: "Trainer2Id",
+        allowNull: true
+      }
+    });
+  };
+
+  return User;
+};

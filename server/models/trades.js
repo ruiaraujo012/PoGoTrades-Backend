@@ -1,69 +1,66 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../configs/database");
+"use strict";
 
-const Trade = sequelize.define(
-  "Trades",
-  {
-    id: {
+module.exports = (sequelize, Sequelize) => {
+  const Trade = sequelize.define("Trade", {
+    Id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    tradeCost: {
+    TradeCost: {
       type: Sequelize.INTEGER.UNSIGNED,
       allowNull: false
     },
-    specialTrade: {
+    SpecialTrade: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
     },
-    luckyTrade: {
+    LuckyTrade: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
     },
-    bothRegistered: {
+    BothRegistered: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: true
     },
-    friendshipLevel: {
+    FriendshipLevel: {
       type: Sequelize.SMALLINT,
       allowNull: false,
-      defaultValue: 0,
+      defaultValue: 1,
       validate: {
-        min: 0,
+        min: 1,
         max: 4
       }
     },
-    state: {
+    State: {
       type: Sequelize.ENUM("Scheduled", "Done", "Canceled"),
       allowNull: false,
       defaultValue: "Scheduled"
     },
-    observation: {
+    Observation: {
       type: Sequelize.TEXT
-    },
-    trainer1ID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    trainer2ID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    pokemon1ID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    pokemon2ID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
     }
-  },
-  {}
-);
+  });
 
-module.exports = Trade;
+  Trade.associate = models => {
+    models.Trade.belongsTo(models.User, {
+      foreignKey: {
+        name: "Trainer1Id",
+        allowNull: false
+      }
+    });
+
+    models.Trade.belongsTo(models.User, {
+      foreignKey: {
+        name: "Trainer2Id",
+        allowNull: false
+      }
+    });
+  };
+
+  return Trade;
+};

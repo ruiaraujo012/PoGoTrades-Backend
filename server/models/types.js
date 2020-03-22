@@ -1,21 +1,18 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../configs/database");
+"use strict";
 
-const Type = sequelize.define(
-  "Types",
-  {
-    id: {
+module.exports = (sequelize, Sequelize) => {
+  const Type = sequelize.define("Type", {
+    Id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    Name: {
       type: Sequelize.STRING(50),
       allowNull: false
     }
-  },
-  {}
-);
+  });
 
-module.exports = Type;
+  return Type;
+};
