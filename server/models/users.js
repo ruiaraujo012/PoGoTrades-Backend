@@ -38,14 +38,14 @@ module.exports = (sequelize, Sequelize) => {
     models.User.hasMany(models.Trade, {
       foreignKey: {
         name: "Trainer1Id",
-        allowNull: true
+        allowNull: false
       }
     });
 
     models.User.hasMany(models.Trade, {
       foreignKey: {
         name: "Trainer2Id",
-        allowNull: true
+        allowNull: false
       }
     });
   };

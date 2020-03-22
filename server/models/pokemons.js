@@ -53,6 +53,28 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
+  Pokemon.associate = models => {
+    models.Pokemon.hasMany(models.Trade, {
+      foreignKey: {
+        name: "Pokemon1Id",
+        allowNull: false
+      }
+    });
+
+    models.Pokemon.hasMany(models.Trade, {
+      foreignKey: {
+        name: "Pokemon2Id",
+        allowNull: false
+      }
+    });
+
+    models.Pokemon.belongsTo(models.Region, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+
   // Pokemon.associate = models => {
   //   models.Pokemon.hasMany(models.PokemonMove, {
   //     foreignKey: {

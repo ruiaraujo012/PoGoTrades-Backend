@@ -60,6 +60,20 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false
       }
     });
+
+    models.Trade.belongsTo(models.Pokemon, {
+      foreignKey: {
+        name: "Pokemon1Id",
+        allowNull: false
+      }
+    });
+
+    models.Trade.belongsTo(models.Pokemon, {
+      foreignKey: {
+        name: "Pokemon2Id",
+        allowNull: false
+      }
+    });
   };
 
   return Trade;

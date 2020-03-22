@@ -18,5 +18,13 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
+  Region.associate = models => {
+    models.Region.hasMany(models.Pokemon, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+
   return Region;
 };
