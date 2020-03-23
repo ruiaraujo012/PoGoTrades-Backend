@@ -1,14 +1,21 @@
 version: "3.7"
 services:
-  client:
-    build: ./client
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./client:/client
+  # client:
+  #   build: ./client
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./client:/client
 
   server:
     build: ./server
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: PoGoTrades
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_DIALECT: postgres
     ports:
       - "8000:8000"
     volumes:
