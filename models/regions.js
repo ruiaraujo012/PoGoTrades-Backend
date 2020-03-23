@@ -4,17 +4,18 @@ module.exports = (sequelize, Sequelize) => {
   const Region = sequelize.define("Region", {
     Id: {
       type: Sequelize.INTEGER,
-      allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     Name: {
       type: Sequelize.STRING(50),
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     Generation: {
       type: Sequelize.SMALLINT,
-      allowNull: false
+      allowNull: false,
+      unique: true
     }
   });
 

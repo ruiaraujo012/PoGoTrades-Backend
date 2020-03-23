@@ -4,7 +4,6 @@ module.exports = (sequelize, Sequelize) => {
   const PokemonMove = sequelize.define("PokemonMove", {
     Id: {
       type: Sequelize.INTEGER,
-      allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },

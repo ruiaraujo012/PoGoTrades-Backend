@@ -4,13 +4,13 @@ module.exports = (sequelize, Sequelize) => {
   const Move = sequelize.define("Move", {
     Id: {
       type: Sequelize.INTEGER,
-      allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     Name: {
       type: Sequelize.STRING(100),
-      allowNull: false
+      allowNull: false,
+      unique: true
     }
   });
 

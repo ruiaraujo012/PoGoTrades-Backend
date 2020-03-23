@@ -4,7 +4,6 @@ module.exports = (sequelize, Sequelize) => {
   const Trade = sequelize.define("Trade", {
     Id: {
       type: Sequelize.INTEGER,
-      allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
