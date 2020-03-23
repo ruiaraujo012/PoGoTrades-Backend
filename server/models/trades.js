@@ -9,8 +9,11 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true
     },
     TradeCost: {
-      type: Sequelize.INTEGER.UNSIGNED,
-      allowNull: false
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0
+      }
     },
     SpecialTrade: {
       type: Sequelize.BOOLEAN,

@@ -14,5 +14,27 @@ module.exports = (sequelize, Sequelize) => {
     }
   });
 
+  Type.associate = models => {
+    models.Type.hasMany(models.Pokemon, {
+      foreignKey: {
+        name: "Type1Id",
+        allowNull: false
+      }
+    });
+
+    models.Type.hasMany(models.Pokemon, {
+      foreignKey: {
+        name: "Type2Id",
+        allowNull: true
+      }
+    });
+
+    models.Type.hasMany(models.Move, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+
   return Type;
 };

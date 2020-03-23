@@ -13,39 +13,36 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       defaultValue: "None"
     }
-    // fastMoveID: {
-    //   type: Sequelize.INTEGER,
-    //   allowNull: false
-    // },
-    // chargeMove1ID: {
-    //   type: Sequelize.INTEGER,
-    //   allowNull: false
-    // },
-    // chargeMove2ID: {
-    //   type: Sequelize.INTEGER
-    // }
   });
 
-  // PokemonMove.associate = models => {
-  // models.PokemonMove.belongsTo(models.Move, {
-  //   foreignKey: {
-  //     name: "FastMoveId",
-  //     allowNull: false
-  //   }
-  // });
-  // models.PokemonMove.belongsTo(models.Move, {
-  //   foreignKey: {
-  //     name: "ChargeMove1Id",
-  //     allowNull: false
-  //   }
-  // });
-  // models.PokemonMove.belongsTo(models.Move, {
-  //   foreignKey: {
-  //     name: "ChargeMove2Id",
-  //     allowNull: false
-  //   }
-  // });
-  // };
+  PokemonMove.associate = models => {
+    models.PokemonMove.belongsTo(models.Move, {
+      foreignKey: {
+        name: "FastMoveId",
+        allowNull: false
+      }
+    });
+
+    models.PokemonMove.belongsTo(models.Move, {
+      foreignKey: {
+        name: "ChargeMove1Id",
+        allowNull: false
+      }
+    });
+
+    models.PokemonMove.belongsTo(models.Move, {
+      foreignKey: {
+        name: "ChargeMove2Id",
+        allowNull: true
+      }
+    });
+
+    models.PokemonMove.belongsTo(models.Pokemon, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
 
   return PokemonMove;
 };

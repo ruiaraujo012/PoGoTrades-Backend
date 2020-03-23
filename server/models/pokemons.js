@@ -73,30 +73,27 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false
       }
     });
+
+    models.Pokemon.belongsTo(models.Type, {
+      foreignKey: {
+        name: "Type1Id",
+        allowNull: false
+      }
+    });
+
+    models.Pokemon.belongsTo(models.Type, {
+      foreignKey: {
+        name: "Type2Id",
+        allowNull: true
+      }
+    });
+
+    models.Pokemon.hasMany(models.PokemonMove, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
   };
-
-  // Pokemon.associate = models => {
-  //   models.Pokemon.hasMany(models.PokemonMove, {
-  //     foreignKey: {
-  //       name: "FastMoveId"
-  //       // allowNull: false
-  //     }
-  //   });
-
-  //   models.Pokemon.hasMany(models.PokemonMove, {
-  //     foreignKey: {
-  //       name: "ChargeMove1Id"
-  //       // allowNull: false
-  //     }
-  //   });
-
-  //   models.Pokemon.hasMany(models.PokemonMove, {
-  //     foreignKey: {
-  //       name: "ChargeMove2Id"
-  //       // allowNull: false
-  //     }
-  //   });
-  // };
 
   return Pokemon;
 };
