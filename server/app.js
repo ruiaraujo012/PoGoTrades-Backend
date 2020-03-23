@@ -5,9 +5,7 @@ const logger = require("morgan");
 
 const db = require("./models/index").sequelize;
 
-const models = require("./models");
-
-const indexRouter = require("./routes/index");
+const dummyRouter = require("./routes/dummy");
 
 const app = express();
 
@@ -37,6 +35,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/v1/", indexRouter);
+app.use("/v1/dummy", dummyRouter);
 
 module.exports = app;
