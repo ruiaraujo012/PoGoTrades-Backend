@@ -1,6 +1,6 @@
 FROM node:latest
 
-WORKDIR /server
+WORKDIR /Backend
 
 RUN apt-get update
 
