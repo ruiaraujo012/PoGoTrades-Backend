@@ -49,6 +49,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.ENUM("Common", "Legendary", "Mythical"),
       allowNull: false,
       defaultValue: "Common"
+    },
+    ImageName: {
+      type: Sequelize.STRING,
+      allowNull: false
     }
   });
 
