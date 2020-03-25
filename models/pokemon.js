@@ -45,6 +45,11 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       defaultValue: true
     },
+    Available: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
     Category: {
       type: Sequelize.ENUM("Common", "Legendary", "Mythical"),
       allowNull: false,
