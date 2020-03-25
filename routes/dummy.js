@@ -4,7 +4,8 @@ const router = express.Router();
 
 const db = require("../models/index");
 
-/* GET home page. */
+const Types = require("../controllers/v1/type");
+
 router.get("/populateDB", (req, res) => {
   db.Type.create({ Name: "Fire" });
   db.Region.create({ Name: "Johto", Generation: 1 });
@@ -34,7 +35,7 @@ router.get("/getAll", async (req, res) => {
     response.trades = await db.Trade.findAll();
     response.pokemons = await db.Pokemon.findAll();
     response.regions = await db.Region.findAll();
-    response.types = await db.Type.findAll();
+    response.types = await Types.getAll();
     response.moves = await db.Move.findAll();
     response.pokemonMoves = await db.PokemonMove.findAll();
     // {
