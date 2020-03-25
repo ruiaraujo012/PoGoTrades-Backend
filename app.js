@@ -6,6 +6,7 @@ const logger = require("morgan");
 const db = require("./models/index").sequelize;
 
 const dummyRouter = require("./routes/dummy");
+const populateRouter = require("./routes/populate");
 
 const app = express();
 
@@ -36,5 +37,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/v1/dummy", dummyRouter);
+app.use("/v1/populate", populateRouter);
+
+app.use((req, res) => {
+  res.status(404).send("Sorry this page does not exist!");
+});
 
 module.exports = app;
