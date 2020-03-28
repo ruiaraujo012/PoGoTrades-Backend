@@ -1,10 +1,10 @@
 FROM node:latest
 
-WORKDIR /Backend
+WORKDIR /backend
 
 RUN apt-get update
 
-COPY package*.json yarn.lock ./
+COPY package.json yarn.lock ./
 
 RUN yarn
 RUN yarn global add nodemon
