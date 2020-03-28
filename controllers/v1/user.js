@@ -13,6 +13,18 @@ Users.getAllBasic = () => {
 };
 
 /**
+ * Get all users (Admins only)
+ * @returns {Array} All users on database
+ */
+Users.getAll = () => {
+  return User.findAll({
+    attributes: {
+      exclude: ["PasswordHash"]
+    }
+  });
+};
+
+/**
  * Get user by Id (Basic information [Id, Nickname])
  * @param {Number} id - Id to find user
  * @returns {Array} Corresponded user on database
@@ -20,6 +32,19 @@ Users.getAllBasic = () => {
 Users.getIdBasic = id => {
   return User.findByPk(id, {
     attributes: ["Id", "Username"]
+  });
+};
+
+/**
+ * Get user by Id (Only current user Id)
+ * @param {Number} id - Id to find user
+ * @returns {Array} Corresponded user on database
+ */
+Users.getId = id => {
+  return User.findByPk(id, {
+    attributes: {
+      exclude: ["PasswordHash"]
+    }
   });
 };
 
