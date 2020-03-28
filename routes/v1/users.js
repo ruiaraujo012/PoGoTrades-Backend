@@ -1,4 +1,5 @@
 const express = require("express");
+const passport = require("passport");
 
 const router = express.Router();
 
@@ -81,7 +82,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Create one user
+// Create one user (Only username for now)
 router.post("/", async (req, res) => {
   try {
     const user = await Users.insertOne(req.body);
@@ -102,6 +103,25 @@ router.post("/", async (req, res) => {
       res.status(500).send(`Error: ${err}`);
     }
   }
+});
+
+// Signup of one user (username and password)
+router.post("/signup", async (req, res, next) => {
+  passport.authenticate("signup", async (err, user, info) => {
+    try {
+      if (err) {
+        return next(err);
+      }
+
+      if (!user) {
+        return res.status(409).send(info);
+      }
+
+      return res.status(201).send(info);
+    } catch {
+      return next(err);
+    }
+  })(req, res, next);
 });
 
 module.exports = router;
