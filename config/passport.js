@@ -3,6 +3,7 @@ const localStrategy = require("passport-local").Strategy;
 const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const bcrypt = require("bcrypt");
+
 const { User } = require("../models/index");
 
 const SALT_ROUNDS = 10;
@@ -80,8 +81,6 @@ passport.use(
         userExist = userExist.dataValues;
         const valid = await isValidPassword(password, userExist.PasswordHash);
 
-        // if (valid) throw new Error("Teste");
-
         if (!valid) {
           return done(null, false, "Username or password invalid!");
         }
@@ -102,19 +101,19 @@ passport.use(
   })
 );
 
-/*
- * Verifica e valida o token enviado pelo utilizador
+/**
+ * Checks and validates the token sent by the user
  */
 passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: "secret", // FIXME: Change in future
+      secretOrKey: process.env.JWT_SECRET,
       expiresIn: "1h"
     },
     async (decodedToken, done) => {
       try {
-        return done(null, decodedToken.user);
+        return done(null, decodedToken);
       } catch (err) {
         done(err);
       }
@@ -122,15 +121,15 @@ passport.use(
   )
 );
 
-/*
- * Gerar hash da password
+/**
+ * Generates the password hash
  */
 createHash = password => {
   return bcrypt.hash(password, SALT_ROUNDS);
 };
 
-/*
- * Verifica o hash das passwords
+/**
+ * Check the password hash
  */
 isValidPassword = (password, userPassword) => {
   return bcrypt.compare(password, userPassword);

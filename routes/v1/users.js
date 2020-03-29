@@ -1,126 +1,170 @@
 const express = require("express");
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
+
+const { jwtSign } = require("../../utils/jwt");
 
 const router = express.Router();
 
 const Users = require("../../controllers/v1/user");
 
 // Get all users from DB (querystirng to get basic information or all information)
-router.get("/", async (req, res) => {
-  if (req.query.format === "basic") {
+router.get(
+  "/",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  async (req, res) => {
     try {
-      const users = await Users.getAllBasic();
+      let users = null;
 
-      res.status(200).jsonp(users);
+      if (req.query.format === "basic") users = await Users.getAllBasic();
+      // TODO: Remove in the future (maybe for admins only)
+      else users = await Users.getAll();
+
+      if (!users || users.length === 0)
+        res.status(404).send("Cannot find users.");
+      else res.status(200).jsonp(users);
     } catch (err) {
       if (err.name.search(/Sequelize/i) !== -1)
         res.status(409).send(
-          `Error on user creation: ${JSON.stringify({
+          `Error fetching users: ${JSON.stringify({
             name: err.name,
             message: err.message
           })}`
         );
-
-      res.status(500).send(`Error: ${err}`);
-    }
-  } else {
-    // TODO: Change for admins only
-    try {
-      const users = await Users.getAll();
-
-      res.status(200).jsonp(users);
-    } catch (err) {
-      if (err.name.search(/Sequelize/i) !== -1)
-        res.status(409).send(
-          `Error on user creation: ${JSON.stringify({
-            name: err.name,
-            message: err.message
-          })}`
-        );
-
-      res.status(500).send(`Error: ${err}`);
+      else res.status(500).send(`Error: ${err}`);
     }
   }
-});
+);
+
+/**
+ * Return the profile user data
+ */
+router.get(
+  "/profile",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  async (req, res) => {
+    try {
+      const user = await Users.getId(req.user.id);
+
+      if (!user)
+        res.status(404).send(`User with id "${req.params.id}" do not exist.`);
+      else res.status(200).jsonp(user);
+    } catch (err) {
+      if (err.name.search(/Sequelize/i) !== -1)
+        res.status(409).send(
+          `Error fetching user data: ${JSON.stringify({
+            name: err.name,
+            message: err.message
+          })}`
+        );
+      else res.status(500).send(`Error: ${err}`);
+    }
+  }
+);
 
 // Get all user information by id (querystirng to get basic information or all information)
-router.get("/:id", async (req, res) => {
-  if (req.query.format === "basic") {
+router.get(
+  "/:id([0-9]+)",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  async (req, res) => {
     try {
-      console.log("req.params :", req.params);
-      const users = await Users.getIdBasic(req.params.id);
+      let user = null;
 
-      res.status(200).jsonp(users);
+      if (req.query.format === "basic")
+        user = await Users.getIdBasic(req.params.id);
+      else user = await Users.getId(req.params.id);
+
+      if (!user)
+        res.status(404).send(`User with id "${req.params.id}" do not exist.`);
+      else res.status(200).jsonp(user);
     } catch (err) {
       if (err.name.search(/Sequelize/i) !== -1)
         res.status(409).send(
-          `Error on user creation: ${JSON.stringify({
+          `Error fetching user data: ${JSON.stringify({
             name: err.name,
             message: err.message
           })}`
         );
-
-      res.status(500).send(`Error: ${err}`);
-    }
-  } else {
-    // TODO: Change else to else if with the user id (Only current user can see all user information)
-    try {
-      const users = await Users.getId(req.params.id);
-
-      res.status(200).jsonp(users);
-    } catch (err) {
-      if (err.name.search(/Sequelize/i) !== -1)
-        res.status(409).send(
-          `Error on user creation: ${JSON.stringify({
-            name: err.name,
-            message: err.message
-          })}`
-        );
-
-      res.status(500).send(`Error: ${err}`);
+      else res.status(500).send(`Error: ${err}`);
     }
   }
-});
+);
+
+// Get all user information by username (querystirng to get basic information or all information)
+router.get(
+  "/:username",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  async (req, res) => {
+    try {
+      let user = null;
+
+      if (req.query.format === "basic")
+        user = await Users.getUsernameBasic(req.params.username);
+      else user = await Users.getUsername(req.params.username);
+
+      if (!user)
+        res
+          .status(404)
+          .send(`User with username "${req.params.username}" do not exist.`);
+      else res.status(200).jsonp(user);
+    } catch (err) {
+      if (err.name.search(/Sequelize/i) !== -1)
+        res.status(409).send(
+          `Error fetching user data: ${JSON.stringify({
+            name: err.name,
+            message: err.message
+          })}`
+        );
+      else res.status(500).send(`Error: ${err}`);
+    }
+  }
+);
 
 // Create one user (Only username for now)
-router.post("/", async (req, res) => {
-  try {
-    const user = await Users.insertOne(req.body);
+router.post(
+  "/",
+  passport.authenticate("jwt", {
+    session: false
+  }),
+  async (req, res) => {
+    try {
+      const user = await Users.insertOne(req.body);
 
-    res
-      .status(201)
-      .send(`User "${user.dataValues.Username}" created successful.`);
-  } catch (err) {
-    if (err.name.search(/Sequelize/i) !== -1) {
-      res.status(409).send(
-        `Error on user creation: ${JSON.stringify({
-          name: err.name,
-          message: err.message
-        })}`
-      );
-    } else {
-      // TODO: Find correct http code
-      res.status(500).send(`Error: ${err}`);
+      res
+        .status(201)
+        .send(`User "${user.dataValues.Username}" created successful.`);
+    } catch (err) {
+      // TODO: Refactor this error
+      if (err.name.search(/Sequelize/i) !== -1)
+        res.status(409).send(
+          `Error on user creation: ${JSON.stringify({
+            name: err.name,
+            message: err.message
+          })}`
+        );
+      else res.status(500).send(`Error: ${err}`);
     }
   }
-});
+);
 
 // Signup of one user (username and password)
 router.post("/signup", async (req, res, next) => {
   passport.authenticate("signup", async (err, user, info) => {
     try {
-      if (err) {
-        return next(err);
-      }
+      if (err) return res.status(500).send(`Error: ${err}`);
 
-      if (!user) {
-        return res.status(409).send(info);
-      }
+      if (!user) return res.status(409).send(info);
 
       return res.status(201).send(info);
     } catch {
-      return next(err);
+      return res.status(500).send(`Error: ${err}`);
     }
   })(req, res, next);
 });
@@ -129,13 +173,9 @@ router.post("/signup", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
     try {
-      if (err) {
-        return res.status(500).send(info);
-      }
+      if (err) return res.status(500).send(`Error: ${err}`);
 
-      if (!user) {
-        return res.status(404).send(info);
-      }
+      if (!user) return res.status(404).send(info);
 
       req.login(
         user,
@@ -143,22 +183,14 @@ router.post("/login", async (req, res, next) => {
           session: false
         },
         async err => {
-          if (err) return next(err);
+          if (err) return res.status(500).send(`Error: ${err}`);
 
           const userInfoInToken = {
             id: user.Id,
             username: user.Username
           };
 
-          const token = jwt.sign(
-            {
-              user: userInfoInToken
-            },
-            "secret", // FIXME: Change in future
-            {
-              expiresIn: "1h"
-            }
-          );
+          const token = jwtSign(userInfoInToken, "1h");
 
           return res.status(201).jsonp({
             message: info,
@@ -167,7 +199,7 @@ router.post("/login", async (req, res, next) => {
         }
       );
     } catch (err) {
-      return next(err);
+      return res.status(500).send(`Error: ${err}`);
     }
   })(req, res, next);
 });
