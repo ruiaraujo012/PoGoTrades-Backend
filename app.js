@@ -23,7 +23,7 @@ app.use(passport.initialize());
  * Database connection
  */
 
-console.log("Trying to connect to database");
+console.log("Trying to connect to database...");
 
 try {
   db.authenticate();

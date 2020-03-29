@@ -7,29 +7,37 @@ const { User } = require("../models/index");
 
 const SALT_ROUNDS = 10;
 
-/*
+/**
  * Passport middleware to handle with user signup
  */
 passport.use(
   "signup",
   new localStrategy(async (username, password, done) => {
     try {
-      const userExist = await User.findOne({
+      let userExist = await User.findOne({
+        limit: 1,
         where: {
           Username: username
         }
       });
 
-      if (userExist && userExist.PasswordHash !== null) {
-        return done(null, false, `The user ${username} already exists.`);
-      } else {
-        // const userData = req.body.data;
-        // const passwordHash = await createHash(userData.password);
+      if (!userExist) {
         const passwordHash = await createHash(password);
 
-        // userData.password = passwordHash;
+        const newUser = await User.create({
+          Username: username,
+          PasswordHash: passwordHash
+        });
 
-        if (userExist) {
+        return done(null, newUser, `User ${username} created successfully.`);
+      } else {
+        userExist = userExist.dataValues;
+
+        if (userExist.PasswordHash) {
+          return done(null, false, `The user ${username} already exists.`);
+        } else {
+          const passwordHash = await createHash(password);
+
           const updatedUser = await User.update(
             { PasswordHash: passwordHash },
             {
@@ -44,63 +52,54 @@ passport.use(
             updatedUser,
             `User ${username} created successfully.`
           );
-        } else {
-          const newUser = await User.create({
-            Username: username,
-            PasswordHash: passwordHash
-          });
-
-          return done(null, newUser, `User ${username} created successfully.`);
         }
       }
     } catch (err) {
-      return done(err, false, null);
+      return done(err, false, "Internal error");
     }
   })
 );
 
-/*
- * Passport middleware para lidar com o login de utilizadores
+/**
+ * Passport middleware to handle with user login
  */
 passport.use(
   "login",
-  new localStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password"
-    },
-    async (email, password, done) => {
-      try {
-        const user = await User.findOne({
-          email: email
-        });
-
-        const valid = await isValidPassword(user, password);
-
-        if (!user || !valid) {
-          return done(null, false, {
-            message: "Utilizador ou password inválido!"
-          });
+  new localStrategy(async (username, password, done) => {
+    try {
+      let userExist = await User.findOne({
+        limit: 1,
+        where: {
+          Username: username
         }
+      });
 
-        return done(null, user, {
-          message: "Login realizado com sucesso."
-        });
-      } catch (err) {
-        const user = await User.findOne({
-          email: email
-        });
+      if (!userExist) {
+        return done(null, false, "Username or password invalid!");
+      } else {
+        userExist = userExist.dataValues;
+        const valid = await isValidPassword(password, userExist.PasswordHash);
 
-        if (!user) {
-          return done(null, false, {
-            message: "Utilizador ou password inválido!"
-          });
+        // if (valid) throw new Error("Teste");
+
+        if (!valid) {
+          return done(null, false, "Username or password invalid!");
         }
-
-        return done(err);
       }
+
+      return done(null, userExist, "Login successful!");
+    } catch (err) {
+      let userExist = await User.findOne({
+        limit: 1,
+        where: {
+          Username: username
+        }
+      });
+
+      console.log("userExist :", userExist);
+      return done(err, false, "Internal error");
     }
-  )
+  })
 );
 
 /*
@@ -133,6 +132,6 @@ createHash = password => {
 /*
  * Verifica o hash das passwords
  */
-isValidPassword = (user, password) => {
-  return bcrypt.compare(password, user.password);
+isValidPassword = (password, userPassword) => {
+  return bcrypt.compare(password, userPassword);
 };

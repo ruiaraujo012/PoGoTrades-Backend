@@ -1,5 +1,6 @@
 const express = require("express");
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
@@ -119,6 +120,53 @@ router.post("/signup", async (req, res, next) => {
 
       return res.status(201).send(info);
     } catch {
+      return next(err);
+    }
+  })(req, res, next);
+});
+
+// Login of one user (username and password)
+router.post("/login", async (req, res, next) => {
+  passport.authenticate("login", async (err, user, info) => {
+    try {
+      if (err) {
+        return res.status(500).send(info);
+      }
+
+      if (!user) {
+        return res.status(404).send(info);
+      }
+
+      req.login(
+        user,
+        {
+          session: false
+        },
+        async err => {
+          if (err) return next(err);
+
+          const userInfoInToken = {
+            id: user.Id,
+            username: user.Username
+          };
+
+          const token = jwt.sign(
+            {
+              user: userInfoInToken
+            },
+            "secret", // FIXME: Change in future
+            {
+              expiresIn: "1h"
+            }
+          );
+
+          return res.status(201).jsonp({
+            message: info,
+            token: token
+          });
+        }
+      );
+    } catch (err) {
       return next(err);
     }
   })(req, res, next);
