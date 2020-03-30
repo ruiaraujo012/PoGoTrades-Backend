@@ -9,15 +9,20 @@
     "test": "jest"
   },
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "cookie-parser": "1.4.5",
     "debug": "4.1.1",
     "express": "4.17.1",
     "morgan": "1.9.1",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "pg": "7.18.2",
     "pg-hstore": "2.3.3",
     "sequelize": "5.21.5"
   },
   "devDependencies": {
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2"
   }
 }
