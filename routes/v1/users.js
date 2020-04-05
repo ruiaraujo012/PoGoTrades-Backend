@@ -11,7 +11,7 @@ const Users = require("../../controllers/v1/user");
 router.get(
   "/",
   passport.authenticate("jwt", {
-    session: false
+    session: false,
   }),
   async (req, res) => {
     try {
@@ -29,7 +29,7 @@ router.get(
         res.status(409).send(
           `Error fetching users: ${JSON.stringify({
             name: err.name,
-            message: err.message
+            message: err.message,
           })}`
         );
       else res.status(500).send(`Error: ${err}`);
@@ -43,7 +43,7 @@ router.get(
 router.get(
   "/profile",
   passport.authenticate("jwt", {
-    session: false
+    session: false,
   }),
   async (req, res) => {
     try {
@@ -57,7 +57,7 @@ router.get(
         res.status(409).send(
           `Error fetching user data: ${JSON.stringify({
             name: err.name,
-            message: err.message
+            message: err.message,
           })}`
         );
       else res.status(500).send(`Error: ${err}`);
@@ -69,7 +69,7 @@ router.get(
 router.get(
   "/:id([0-9]+)",
   passport.authenticate("jwt", {
-    session: false
+    session: false,
   }),
   async (req, res) => {
     try {
@@ -87,7 +87,7 @@ router.get(
         res.status(409).send(
           `Error fetching user data: ${JSON.stringify({
             name: err.name,
-            message: err.message
+            message: err.message,
           })}`
         );
       else res.status(500).send(`Error: ${err}`);
@@ -99,7 +99,7 @@ router.get(
 router.get(
   "/:username",
   passport.authenticate("jwt", {
-    session: false
+    session: false,
   }),
   async (req, res) => {
     try {
@@ -119,7 +119,7 @@ router.get(
         res.status(409).send(
           `Error fetching user data: ${JSON.stringify({
             name: err.name,
-            message: err.message
+            message: err.message,
           })}`
         );
       else res.status(500).send(`Error: ${err}`);
@@ -131,7 +131,7 @@ router.get(
 router.post(
   "/",
   passport.authenticate("jwt", {
-    session: false
+    session: false,
   }),
   async (req, res) => {
     try {
@@ -139,14 +139,14 @@ router.post(
 
       res
         .status(201)
-        .send(`User "${user.dataValues.Username}" created successful.`);
+        .send(`User "${user.dataValues.username}" created successful.`);
     } catch (err) {
       // TODO: Refactor this error
       if (err.name.search(/Sequelize/i) !== -1)
         res.status(409).send(
           `Error on user creation: ${JSON.stringify({
             name: err.name,
-            message: err.message
+            message: err.message,
           })}`
         );
       else res.status(500).send(`Error: ${err}`);
@@ -163,7 +163,7 @@ router.post("/signup", async (req, res, next) => {
       if (!user) return res.status(409).send(info);
 
       return res.status(201).send(info);
-    } catch {
+    } catch (err) {
       return res.status(500).send(`Error: ${err}`);
     }
   })(req, res, next);
@@ -180,21 +180,21 @@ router.post("/login", async (req, res, next) => {
       req.login(
         user,
         {
-          session: false
+          session: false,
         },
         async err => {
           if (err) return res.status(500).send(`Error: ${err}`);
 
           const userInfoInToken = {
-            id: user.Id,
-            username: user.Username
+            id: user.id,
+            username: user.username,
           };
 
           const token = jwtSign(userInfoInToken, "1h");
 
           return res.status(201).jsonp({
             message: info,
-            token: token
+            token: token,
           });
         }
       );

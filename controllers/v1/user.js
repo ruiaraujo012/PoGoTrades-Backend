@@ -8,7 +8,7 @@ const Users = module.exports;
  */
 Users.getAllBasic = () => {
   return User.findAll({
-    attributes: ["Id", "Username"]
+    attributes: ["id", "username"],
   });
 };
 
@@ -19,8 +19,8 @@ Users.getAllBasic = () => {
 Users.getAll = () => {
   return User.findAll({
     attributes: {
-      exclude: ["PasswordHash", "createdAt", "updatedAt"]
-    }
+      exclude: ["passwordHash", "createdAt", "updatedAt"],
+    },
   });
 };
 
@@ -31,7 +31,7 @@ Users.getAll = () => {
  */
 Users.getIdBasic = id => {
   return User.findByPk(id, {
-    attributes: ["Id", "Username"]
+    attributes: ["id", "username"],
   });
 };
 
@@ -43,8 +43,8 @@ Users.getIdBasic = id => {
 Users.getId = id => {
   return User.findByPk(id, {
     attributes: {
-      exclude: ["PasswordHash", "createdAt", "updatedAt"]
-    }
+      exclude: ["passwordHash", "createdAt", "updatedAt"],
+    },
   });
 };
 
@@ -57,9 +57,9 @@ Users.getUsernameBasic = username => {
   return User.findOne({
     limit: 1,
     where: {
-      Username: username
+      username: username,
     },
-    attributes: ["Id", "Username"]
+    attributes: ["id", "username"],
   });
 };
 
@@ -72,11 +72,11 @@ Users.getUsername = username => {
   return User.findOne({
     limit: 1,
     where: {
-      Username: username
+      username: username,
     },
     attributes: {
-      exclude: ["PasswordHash", "createdAt", "updatedAt"]
-    }
+      exclude: ["passwordHash", "createdAt", "updatedAt"],
+    },
   });
 };
 

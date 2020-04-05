@@ -1,105 +1,111 @@
-"use strict";
-
 module.exports = (sequelize, Sequelize) => {
   const Pokemon = sequelize.define("Pokemon", {
-    Id: {
+    id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
-    Pokedex: {
+    pokedex: {
       type: Sequelize.SMALLINT,
-      allowNull: false
+      allowNull: false,
     },
-    Name: {
+    name: {
       type: Sequelize.STRING(100),
-      allowNull: false
+      allowNull: false,
     },
-    Alolan: {
+    form: {
+      type: Sequelize.STRING(100),
+      allowNull: true,
+    },
+    // save for see late
+    // alolan: {
+    //   type: Sequelize.BOOLEAN,
+    //   allowNull: false,
+    //   defaultValue: false,
+    // },
+    shiny: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: false,
     },
-    Shiny: {
+    regional: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: false,
     },
-    Regional: {
+    // save for see late
+    // purified: {
+    //   type: Sequelize.BOOLEAN,
+    //   allowNull: false,
+    //   defaultValue: false,
+    // },
+    // baby: {
+    //   type: Sequelize.BOOLEAN,
+    //   allowNull: false,
+    //   defaultValue: false,
+    // },
+    canBeTraded: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: true,
     },
-    Purified: {
+    available: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: true,
     },
-    Baby: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
-    CanBeTraded: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
-    Available: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
-    Category: {
+    category: {
       type: Sequelize.ENUM("Common", "Legendary", "Mythical"),
       allowNull: false,
-      defaultValue: "Common"
+      defaultValue: "Common",
     },
-    ImageName: {
+    imageName: {
       type: Sequelize.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   });
 
   Pokemon.associate = models => {
     models.Pokemon.hasMany(models.Trade, {
       foreignKey: {
-        name: "Pokemon1Id",
-        allowNull: false
-      }
+        name: "pokemon1Id",
+        allowNull: false,
+      },
     });
 
     models.Pokemon.hasMany(models.Trade, {
       foreignKey: {
-        name: "Pokemon2Id",
-        allowNull: false
-      }
+        name: "pokemon2Id",
+        allowNull: false,
+      },
     });
 
     models.Pokemon.belongsTo(models.Region, {
       foreignKey: {
-        allowNull: false
-      }
+        name: "regionId",
+        allowNull: false,
+      },
     });
 
     models.Pokemon.belongsTo(models.Type, {
       foreignKey: {
-        name: "Type1Id",
-        allowNull: false
-      }
+        name: "type1Id",
+        allowNull: false,
+      },
     });
 
     models.Pokemon.belongsTo(models.Type, {
       foreignKey: {
-        name: "Type2Id",
-        allowNull: true
-      }
+        name: "type2Id",
+        allowNull: true,
+      },
     });
 
     models.Pokemon.hasMany(models.PokemonMove, {
       foreignKey: {
-        allowNull: false
-      }
+        name: "pokemonId",
+        allowNull: false,
+      },
     });
   };
 

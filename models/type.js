@@ -1,38 +1,37 @@
-"use strict";
-
 module.exports = (sequelize, Sequelize) => {
   const Type = sequelize.define("Type", {
-    Id: {
+    id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
-    Name: {
+    name: {
       type: Sequelize.STRING(50),
       allowNull: false,
-      unique: true
-    }
+      unique: true,
+    },
   });
 
   Type.associate = models => {
     models.Type.hasMany(models.Pokemon, {
       foreignKey: {
-        name: "Type1Id",
-        allowNull: false
-      }
+        name: "type1Id",
+        allowNull: false,
+      },
     });
 
     models.Type.hasMany(models.Pokemon, {
       foreignKey: {
-        name: "Type2Id",
-        allowNull: true
-      }
+        name: "type2Id",
+        allowNull: true,
+      },
     });
 
     models.Type.hasMany(models.Move, {
       foreignKey: {
-        allowNull: false
-      }
+        name: "typeId",
+        allowNull: false,
+      },
     });
   };
 

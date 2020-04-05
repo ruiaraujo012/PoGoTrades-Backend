@@ -1,80 +1,79 @@
-"use strict";
-
 module.exports = (sequelize, Sequelize) => {
   const Trade = sequelize.define("Trade", {
-    Id: {
+    id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
-    TradeCost: {
+    tradeCost: {
       type: Sequelize.INTEGER,
       allowNull: false,
       validate: {
-        min: 0
-      }
+        min: 0,
+      },
     },
-    SpecialTrade: {
+    specialTrade: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: false,
     },
-    LuckyTrade: {
+    luckyTrade: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false
+      defaultValue: false,
     },
-    BothRegistered: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
-    FriendshipLevel: {
-      type: Sequelize.SMALLINT,
-      allowNull: false,
-      defaultValue: 1,
-      validate: {
-        min: 1,
-        max: 4
-      }
-    },
-    State: {
+    // Add after (feature)
+    // bothRegistered: {
+    //   type: Sequelize.BOOLEAN,
+    //   allowNull: false,
+    //   defaultValue: true,
+    // },
+    // friendshipLevel: {
+    //   type: Sequelize.SMALLINT,
+    //   allowNull: false,
+    //   defaultValue: 1,
+    //   validate: {
+    //     min: 1,
+    //     max: 4,
+    //   },
+    // },
+    state: {
       type: Sequelize.ENUM("Scheduled", "Done", "Canceled"),
       allowNull: false,
-      defaultValue: "Scheduled"
+      defaultValue: "Scheduled",
     },
-    Observation: {
-      type: Sequelize.TEXT
-    }
+    observation: {
+      type: Sequelize.TEXT,
+    },
   });
 
   Trade.associate = models => {
     models.Trade.belongsTo(models.User, {
       foreignKey: {
-        name: "Trainer1Id",
-        allowNull: false
-      }
+        name: "trainer1Id",
+        allowNull: false,
+      },
     });
 
     models.Trade.belongsTo(models.User, {
       foreignKey: {
-        name: "Trainer2Id",
-        allowNull: false
-      }
+        name: "trainer2Id",
+        allowNull: false,
+      },
     });
 
     models.Trade.belongsTo(models.Pokemon, {
       foreignKey: {
-        name: "Pokemon1Id",
-        allowNull: false
-      }
+        name: "pokemon1Id",
+        allowNull: false,
+      },
     });
 
     models.Trade.belongsTo(models.Pokemon, {
       foreignKey: {
-        name: "Pokemon2Id",
-        allowNull: false
-      }
+        name: "pokemon2Id",
+        allowNull: false,
+      },
     });
   };
 
