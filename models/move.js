@@ -1,70 +1,31 @@
-"use strict";
-
 module.exports = (sequelize, Sequelize) => {
   const Move = sequelize.define("Move", {
-    Id: {
+    id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
-    Name: {
+    name: {
       type: Sequelize.STRING(100),
       allowNull: false,
-      unique: true
-    }
+      unique: true,
+    },
   });
 
   Move.associate = models => {
     models.Move.belongsTo(models.Type, {
       foreignKey: {
-        allowNull: false
-      }
+        name: "typeId",
+        allowNull: false,
+      },
     });
 
     models.Move.hasMany(models.PokemonMove, {
       foreignKey: {
-        name: "FastMoveId",
-        allowNull: false
-      }
+        name: "moveId",
+        allowNull: false,
+      },
     });
-
-    models.Move.hasMany(models.PokemonMove, {
-      foreignKey: {
-        name: "ChargeMove1Id",
-        allowNull: false
-      }
-    });
-
-    models.Move.hasMany(models.PokemonMove, {
-      foreignKey: {
-        name: "ChargeMove2Id",
-        allowNull: true
-      }
-    });
-
-    // models.Move.belongsToMany(models.Pokemon, {
-    //   through: "PokemonMove",
-    //   foreignKey: {
-    //     name: "FastMoveId",
-    //     allowNull: false
-    //   }
-    // });
-
-    // models.Move.belongsToMany(models.Pokemon, {
-    //   through: "PokemonMove",
-    //   foreignKey: {
-    //     name: "ChargeMove1Id",
-    //     allowNull: false
-    //   }
-    // });
-
-    // models.Move.belongsToMany(models.Pokemon, {
-    //   through: "PokemonMove",
-    //   foreignKey: {
-    //     name: "ChargeMove2Id",
-    //     allowNull: true
-    //   }
-    // });
   };
 
   return Move;

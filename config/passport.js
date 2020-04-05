@@ -18,33 +18,33 @@ passport.use(
       let userExist = await User.findOne({
         limit: 1,
         where: {
-          Username: username
-        }
+          username: username,
+        },
       });
 
       if (!userExist) {
         const passwordHash = await createHash(password);
 
         const newUser = await User.create({
-          Username: username,
-          PasswordHash: passwordHash
+          username: username,
+          passwordHash: passwordHash,
         });
 
         return done(null, newUser, `User ${username} created successfully.`);
       } else {
         userExist = userExist.dataValues;
 
-        if (userExist.PasswordHash) {
+        if (userExist.passwordHash) {
           return done(null, false, `The user ${username} already exists.`);
         } else {
           const passwordHash = await createHash(password);
 
           const updatedUser = await User.update(
-            { PasswordHash: passwordHash },
+            { passwordHash: passwordHash },
             {
               where: {
-                Username: username
-              }
+                username: username,
+              },
             }
           );
 
@@ -71,15 +71,15 @@ passport.use(
       let userExist = await User.findOne({
         limit: 1,
         where: {
-          Username: username
-        }
+          username: username,
+        },
       });
 
       if (!userExist) {
         return done(null, false, "Username or password invalid!");
       } else {
         userExist = userExist.dataValues;
-        const valid = await isValidPassword(password, userExist.PasswordHash);
+        const valid = await isValidPassword(password, userExist.passwordHash);
 
         if (!valid) {
           return done(null, false, "Username or password invalid!");
@@ -91,8 +91,8 @@ passport.use(
       let userExist = await User.findOne({
         limit: 1,
         where: {
-          Username: username
-        }
+          username: username,
+        },
       });
 
       console.log("userExist :", userExist);
@@ -109,7 +109,7 @@ passport.use(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET,
-      expiresIn: "1h"
+      expiresIn: "1h",
     },
     async (decodedToken, done) => {
       try {

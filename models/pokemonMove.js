@@ -1,45 +1,30 @@
-"use strict";
-
 module.exports = (sequelize, Sequelize) => {
   const PokemonMove = sequelize.define("PokemonMove", {
-    Id: {
+    id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
-    Legacy: {
-      type: Sequelize.ENUM("Fast", "Charge1", "Charge2", "Both", "None"),
+    legacy: {
+      type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: "None"
-    }
+      defaultValue: false,
+    },
   });
 
   PokemonMove.associate = models => {
     models.PokemonMove.belongsTo(models.Move, {
       foreignKey: {
-        name: "FastMoveId",
-        allowNull: false
-      }
-    });
-
-    models.PokemonMove.belongsTo(models.Move, {
-      foreignKey: {
-        name: "ChargeMove1Id",
-        allowNull: false
-      }
-    });
-
-    models.PokemonMove.belongsTo(models.Move, {
-      foreignKey: {
-        name: "ChargeMove2Id",
-        allowNull: true
-      }
+        name: "moveId",
+        allowNull: false,
+      },
     });
 
     models.PokemonMove.belongsTo(models.Pokemon, {
       foreignKey: {
-        allowNull: false
-      }
+        name: "pokemonId",
+        allowNull: false,
+      },
     });
   };
 

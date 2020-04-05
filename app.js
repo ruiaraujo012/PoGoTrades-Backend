@@ -10,7 +10,7 @@ const usersRouter = require("./routes/v1/users");
 
 const app = express();
 
-const RECREATE_DB = process.env.DB_RECREATE || false;
+const RECREATE_DB = !!+process.env.DB_RECREATE || false;
 
 require("./config/passport");
 
@@ -29,7 +29,7 @@ try {
   db.authenticate();
   console.log("Connection to database has been established successfully.");
 
-  if (RECREATE_DB == true) {
+  if (RECREATE_DB) {
     console.log("Recreating database!");
     db.sync({ force: true });
   }
