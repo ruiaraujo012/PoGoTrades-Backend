@@ -834,7 +834,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bcrypt@^4.0.1:
+bcrypt@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/bcrypt/-/bcrypt-4.0.1.tgz#06e21e749a061020e4ff1283c1faa93187ac57fe"
   integrity sha512-hSIZHkUxIDS5zA2o00Kf2O5RfVbQ888n54xQoF/eIaquU4uaLxK8vhhBdktd0B3n2MjkcAWzv4mnhogykBKOUQ==
@@ -1581,7 +1581,7 @@ escodegen@^1.11.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-airbnb-base@^14.1.0:
+eslint-config-airbnb-base@14.1.0, eslint-config-airbnb-base@^14.1.0:
   version "14.1.0"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-14.1.0.tgz#2ba4592dd6843258221d9bff2b6831bd77c874e4"
   integrity sha512-+XCcfGyCnbzOnktDVhwsCAx+9DmrzEmuwxyHUJpw+kqBVT744OUBrB09khgFKlK1lshVww6qXGsYPZpavoNjJw==
@@ -1609,7 +1609,7 @@ eslint-config-esnext@^4.0.0:
     eslint-plugin-babel "^5.2.1"
     eslint-plugin-import "^2.14.0"
 
-eslint-config-node@^4.0.0:
+eslint-config-node@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/eslint-config-node/-/eslint-config-node-4.0.0.tgz#4ebb40defd29a261ce2e7f6fe1b2d7aee38cf2a5"
   integrity sha512-sdr7zqVTQddLEBpsNzTFASOAk8bSbWatZqxLD9J1nBI/H83lGOknODaCCJFWMDN+36LNUMVWVWo+0LhxQJc+wg==
@@ -1617,7 +1617,7 @@ eslint-config-node@^4.0.0:
     eslint "^5.6.0"
     eslint-config-esnext "^4.0.0"
 
-eslint-config-prettier@^6.10.1:
+eslint-config-prettier@6.10.1:
   version "6.10.1"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.10.1.tgz#129ef9ec575d5ddc0e269667bf09defcd898642a"
   integrity sha512-svTy6zh1ecQojvpbJSgH3aei/Rt7C6i090l5f2WQ4aB05lYHeZIR1qL4wZyyILTbtmnbHP5Yn8MrsOJMGa8RkQ==
@@ -1655,7 +1655,7 @@ eslint-plugin-es@^3.0.0:
     eslint-utils "^2.0.0"
     regexpp "^3.0.0"
 
-eslint-plugin-import@^2.14.0, eslint-plugin-import@^2.20.1:
+eslint-plugin-import@2.20.2, eslint-plugin-import@^2.14.0:
   version "2.20.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.20.2.tgz#91fc3807ce08be4837141272c8b99073906e588d"
   integrity sha512-FObidqpXrR8OnCh4iNsxy+WACztJLXAHBO5hK79T1Hc77PgQZkyDGA5Ag9xAvRpglvLNxhH/zSmZ70/pZ31dHg==
@@ -1673,7 +1673,7 @@ eslint-plugin-import@^2.14.0, eslint-plugin-import@^2.20.1:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-jsx-a11y@^6.2.3:
+eslint-plugin-jsx-a11y@6.2.3:
   version "6.2.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-6.2.3.tgz#b872a09d5de51af70a97db1eea7dc933043708aa"
   integrity sha512-CawzfGt9w83tyuVekn0GDPU9ytYtxyxyFZ3aSWROmnRRFQFT2BiPJd7jvRdzNDi6oLWaS2asMeYSNMjWTV4eNg==
@@ -1688,7 +1688,7 @@ eslint-plugin-jsx-a11y@^6.2.3:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-node@^11.1.0:
+eslint-plugin-node@11.1.0:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-node/-/eslint-plugin-node-11.1.0.tgz#c95544416ee4ada26740a30474eefc5402dc671d"
   integrity sha512-oUwtPJ1W0SKD0Tr+wqu92c5xuCeQqB3hSCHasn/ZgjFdA9iDGNkNf2Zi9ztY7X+hNuMib23LNGRm6+uN+KLE3g==
@@ -1700,7 +1700,7 @@ eslint-plugin-node@^11.1.0:
     resolve "^1.10.1"
     semver "^6.1.0"
 
-eslint-plugin-prettier@^3.1.2:
+eslint-plugin-prettier@3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.1.2.tgz#432e5a667666ab84ce72f945c72f77d996a5c9ba"
   integrity sha512-GlolCC9y3XZfv3RQfwGew7NnuFDKsfI4lbvRK+PIIo23SFH+LemGs4cKwzAaRa+Mdb+lQO/STaIayno8T5sJJA==
@@ -1712,7 +1712,7 @@ eslint-plugin-react-hooks@2.5.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-2.5.0.tgz#c50ab7ca5945ce6d1cf8248d9e185c80b54171b6"
   integrity sha512-bzvdX47Jx847bgAYf0FPX3u1oxU+mKU8tqrpj4UX9A96SbAmj/HVEefEy6rJUog5u8QIlOPTKZcBpGn5kkKfAQ==
 
-eslint-plugin-react@^7.19.0:
+eslint-plugin-react@7.19.0:
   version "7.19.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.19.0.tgz#6d08f9673628aa69c5559d33489e855d83551666"
   integrity sha512-SPT8j72CGuAP+JFbT0sJHOB80TX/pu44gQ4vXH/cq+hQTiY2PuZ6IHkqXJV6x1b28GDdo1lbInjKUrrdUf0LOQ==
@@ -3292,7 +3292,7 @@ jest-worker@^25.2.6:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jest@^25.1.0:
+jest@25.2.7:
   version "25.2.7"
   resolved "https://registry.yarnpkg.com/jest/-/jest-25.2.7.tgz#3929a5f35cdd496f7756876a206b99a94e1e09ae"
   integrity sha512-XV1n/CE2McCikl4tfpCY950RytHYvxdo/wvtgmn/qwA8z1s16fuvgFL/KoPrrmkqJTaPMUlLVE58pwiaTX5TdA==
@@ -3860,7 +3860,7 @@ node-pre-gyp@0.14.0:
     semver "^5.3.0"
     tar "^4.4.2"
 
-nodemon@^2.0.2:
+nodemon@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-2.0.2.tgz#9c7efeaaf9b8259295a97e5d4585ba8f0cbe50b0"
   integrity sha512-GWhYPMfde2+M0FsHnggIHXTqPDHXia32HRhh6H0d75Mt9FKUoCBvumNHr7LdrpPBTKxsWmIEOjoN+P4IU6Hcaw==
@@ -4211,7 +4211,7 @@ pascalcase@^0.1.1:
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
   integrity sha1-s2PlXoAGym/iF4TS2yK9FdeRfxQ=
 
-passport-jwt@^4.0.0:
+passport-jwt@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/passport-jwt/-/passport-jwt-4.0.0.tgz#7f0be7ba942e28b9f5d22c2ebbb8ce96ef7cf065"
   integrity sha512-BwC0n2GP/1hMVjR4QpnvqA61TxenUMlmfNjYNgK0ZAs0HK4SOQkHcSv4L328blNTLtHq7DbmvyNJiH+bn6C5Mg==
@@ -4219,7 +4219,7 @@ passport-jwt@^4.0.0:
     jsonwebtoken "^8.2.0"
     passport-strategy "^1.0.0"
 
-passport-local@^1.0.0:
+passport-local@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/passport-local/-/passport-local-1.0.0.tgz#1fe63268c92e75606626437e3b906662c15ba6ee"
   integrity sha1-H+YyaMkudWBmJkN+O5BmYsFbpu4=
@@ -4231,7 +4231,7 @@ passport-strategy@1.x.x, passport-strategy@^1.0.0:
   resolved "https://registry.yarnpkg.com/passport-strategy/-/passport-strategy-1.0.0.tgz#b5539aa8fc225a3d1ad179476ddf236b440f52e4"
   integrity sha1-tVOaqPwiWj0a0XlHbd8ja0QPUuQ=
 
-passport@^0.4.1:
+passport@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/passport/-/passport-0.4.1.tgz#941446a21cb92fc688d97a0861c38ce9f738f270"
   integrity sha512-IxXgZZs8d7uFSt3eqNjM9NQ3g3uQCW5avD8mRNoXV99Yig50vjuaez6dQK2qC0kVWPRTujxY0dWgGfT09adjYg==
@@ -4440,7 +4440,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^2.0.2:
+prettier@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.2.tgz#1ba8f3eb92231e769b7fcd7cb73ae1b6b74ade08"
   integrity sha512-5xJQIPT8BraI7ZnaDwSbu5zLrB6vvi8hVV58yHQ+QK64qrY40dULy0HSRlQ2/2IdzeBpjhDkqdcFBnFeDEMVdg==
