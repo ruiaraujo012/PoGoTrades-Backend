@@ -2,27 +2,34 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const passport = require("passport");
 
 const db = require("./models/index").sequelize;
 
-const dummyRouter = require("./routes/dummy");
-const populateRouter = require("./routes/populate");
+const usersRouter = require("./routes/v1/users");
 
 const app = express();
 
-const RECREATE_DB = true;
+const RECREATE_DB = process.env.DB_RECREATE || false;
 
-/*
+require("./config/passport");
+
+/**
+ * Passport initialization
+ */
+app.use(passport.initialize());
+
+/**
  * Database connection
  */
 
-console.log("Trying to connect [POSTGRES]");
+console.log("Trying to connect to database...");
 
 try {
   db.authenticate();
-  console.log("Connection to [POSTGRES] has been established successfully.");
+  console.log("Connection to database has been established successfully.");
 
-  if (RECREATE_DB) {
+  if (RECREATE_DB == true) {
     console.log("Recreating database!");
     db.sync({ force: true });
   }
@@ -36,8 +43,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/v1/dummy", dummyRouter);
-app.use("/v1/populate", populateRouter);
+app.use("/v1/users", usersRouter);
 
 app.use((req, res) => {
   res.status(404).send("Sorry this page does not exist!");
