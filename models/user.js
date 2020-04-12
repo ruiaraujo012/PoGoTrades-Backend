@@ -1,19 +1,16 @@
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("User", {
     id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
+      allowNull: false,
+      unique: true,
     },
     username: {
       type: Sequelize.STRING(50),
       allowNull: false,
       unique: true,
-    },
-    team: {
-      type: Sequelize.ENUM("Instinct", "Mystic", "Valor", "Harmony"),
-      allowNull: false,
-      defaultValue: "Harmony",
     },
     level: {
       type: Sequelize.SMALLINT,
@@ -31,6 +28,13 @@ module.exports = (sequelize, Sequelize) => {
   });
 
   User.associate = models => {
+    models.User.belongsTo(models.Team, {
+      foreignKey: {
+        name: "teamName",
+        allowNull: false,
+      },
+    });
+
     models.User.hasMany(models.Trade, {
       foreignKey: {
         name: "trainer1Id",
