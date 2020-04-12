@@ -20,12 +20,12 @@ module.exports = (sequelize, Sequelize) => {
       },
     });
 
-    models.Move.hasMany(models.PokemonMove, {
-      foreignKey: {
-        name: "moveId",
-        allowNull: false,
-      },
-    });
+    // models.Move.hasMany(models.PokemonMove, {
+    //   foreignKey: {
+    //     name: "moveId",
+    //     allowNull: false,
+    //   },
+    // });
   };
 
   return Move;
