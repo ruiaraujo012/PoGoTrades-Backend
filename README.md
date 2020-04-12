@@ -16,3 +16,16 @@ PoGoTrades is a platform that allow you to save your combined trades with other 
 ## Database model
 ![alt text](https://github.com/ruiaraujo012/PoGoTrades-Backend/blob/master/dbModeling/db_model_dark.png "Database model dark.")
 
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ruiaraujo012/PoGoTrades-Backend/tags). 
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc
