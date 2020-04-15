@@ -5,9 +5,11 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       defaultValue: false,
     },
+    isFastMove: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
   });
-
-  PokemonMove.associate = models => {};
 
   return PokemonMove;
 };

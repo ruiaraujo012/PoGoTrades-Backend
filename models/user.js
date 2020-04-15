@@ -25,6 +25,15 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.TEXT,
       allowNull: true,
     },
+    role: {
+      type: Sequelize.SMALLINT,
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: 1,
+      },
+    },
   });
 
   User.associate = models => {
