@@ -1,12 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
   const Type = sequelize.define("Type", {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     name: {
       type: Sequelize.STRING(50),
+      primaryKey: true,
       allowNull: false,
       unique: true,
     },
@@ -15,21 +11,21 @@ module.exports = (sequelize, Sequelize) => {
   Type.associate = models => {
     models.Type.hasMany(models.Pokemon, {
       foreignKey: {
-        name: "type1Id",
+        name: "primaryTypeName",
         allowNull: false,
       },
     });
 
     models.Type.hasMany(models.Pokemon, {
       foreignKey: {
-        name: "type2Id",
+        name: "secondaryTypeName",
         allowNull: true,
       },
     });
 
     models.Type.hasMany(models.Move, {
       foreignKey: {
-        name: "typeId",
+        name: "typeName",
         allowNull: false,
       },
     });

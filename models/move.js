@@ -1,12 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
   const Move = sequelize.define("Move", {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     name: {
       type: Sequelize.STRING(100),
+      primaryKey: true,
       allowNull: false,
       unique: true,
     },
@@ -15,17 +11,15 @@ module.exports = (sequelize, Sequelize) => {
   Move.associate = models => {
     models.Move.belongsTo(models.Type, {
       foreignKey: {
-        name: "typeId",
+        name: "typeName",
         allowNull: false,
       },
     });
 
-    // models.Move.hasMany(models.PokemonMove, {
-    //   foreignKey: {
-    //     name: "moveId",
-    //     allowNull: false,
-    //   },
-    // });
+    models.Move.belongsToMany(models.Pokemon, {
+      through: models.PokemonMove,
+      foreignKey: "moveName",
+    });
   };
 
   return Move;

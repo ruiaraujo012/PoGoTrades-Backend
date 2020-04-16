@@ -5,20 +5,11 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       defaultValue: false,
     },
+    isFastMove: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
   });
-
-  PokemonMove.associate = models => {
-    models.Move.belongsToMany(models.Pokemon, {
-      through: PokemonMove,
-      foreignKey: "moveId",
-      otherKey: "pokemonId",
-    });
-    models.Pokemon.belongsToMany(models.Move, {
-      through: PokemonMove,
-      foreignKey: "pokemonId",
-      otherKey: "moveId",
-    });
-  };
 
   return PokemonMove;
 };

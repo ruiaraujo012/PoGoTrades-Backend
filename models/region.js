@@ -1,12 +1,8 @@
 module.exports = (sequelize, Sequelize) => {
   const Region = sequelize.define("Region", {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
     name: {
       type: Sequelize.STRING(50),
+      primaryKey: true,
       allowNull: false,
       unique: true,
     },
@@ -18,9 +14,9 @@ module.exports = (sequelize, Sequelize) => {
   });
 
   Region.associate = models => {
-    models.Region.hasMany(models.Pokemon, {
+    models.Region.hasMany(models.Pokedex, {
       foreignKey: {
-        name: "regionId",
+        name: "regionName",
         allowNull: false,
       },
     });
