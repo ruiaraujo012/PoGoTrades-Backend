@@ -4,19 +4,21 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-    },
-    tradeCost: {
-      type: Sequelize.INTEGER,
       allowNull: false,
-      validate: {
-        min: 0,
-      },
+      unique: true,
     },
-    specialTrade: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: false,
-    },
+    // tradeCost: {
+    //   type: Sequelize.INTEGER,
+    //   allowNull: false,
+    //   validate: {
+    //     min: 0,
+    //   },
+    // },
+    // specialTrade: {
+    //   type: Sequelize.BOOLEAN,
+    //   allowNull: false,
+    //   defaultValue: false,
+    // },
     luckyTrade: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
