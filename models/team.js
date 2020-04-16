@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
     models.Team.hasMany(models.User, {
       foreignKey: {
         name: "teamName",
-        allowNull: false,
+        allowNull: true,
       },
     });
   };

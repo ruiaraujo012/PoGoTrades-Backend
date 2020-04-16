@@ -15,9 +15,9 @@ module.exports = (sequelize, Sequelize) => {
     level: {
       type: Sequelize.SMALLINT,
       allowNull: false,
-      defaultValue: 0,
+      defaultValue: 1,
       validate: {
-        min: 0,
+        min: 1,
         max: 40,
       },
     },
@@ -40,7 +40,7 @@ module.exports = (sequelize, Sequelize) => {
     models.User.belongsTo(models.Team, {
       foreignKey: {
         name: "teamName",
-        allowNull: false,
+        allowNull: true,
       },
     });
 
