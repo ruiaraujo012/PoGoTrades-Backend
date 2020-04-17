@@ -188,6 +188,7 @@ router.post("/login", async (req, res, next) => {
           const userInfoInToken = {
             id: user.id,
             username: user.username,
+            isAdmin: !!+user.role,
           };
 
           const token = jwtSign(userInfoInToken, "1h");
