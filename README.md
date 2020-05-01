@@ -2,6 +2,8 @@
 
 PoGoTrades is a platform that allow you to save your combined trades with other trainers. It permit you to mark whitch pokemon you will give and you will receive. You can mark if it is a special trade, a lucky trade or if the pokemon have a legacy move. This repo is for user interface code.
 
+All ToDo list is [here](https://www.notion.so/trademon/0f7f0fe4675440309e2ecdadb5b05734?v=0542384c829d4f1f8ccc50cb53485b4d).
+
 ## Project Structure
 
 ```
