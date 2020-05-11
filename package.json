@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "0.1.0",
-  "description": "PoGoTrades API",
+  "description": "Trademon API",
   "author": "Rui Araújo <ruiaraujo012@gmail.com>",
   "private": true,
   "scripts": {
