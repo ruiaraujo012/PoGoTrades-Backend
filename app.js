@@ -3,6 +3,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const passport = require("passport");
+const cors = require("cors");
 
 const db = require("./models/index").sequelize;
 
@@ -29,13 +30,27 @@ try {
   db.authenticate();
   console.log("Connection to database has been established successfully.");
 
-  if (RECREATE_DB) {
-    console.log("Recreating database!");
-    db.sync({ force: true });
-  }
+  console.log("Recreating database: ", RECREATE_DB);
+  db.sync({ force: RECREATE_DB });
 } catch (err) {
   console.error("Unable to connect to the database:", err);
 }
+
+const corsOpts = {
+  origin: "*",
+  methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
+  allowedHeaders: [
+    "Accept",
+    "Authorization",
+    "Content-Type",
+    "Origin",
+    "X-Requested-With",
+    "Content-Length",
+  ],
+};
+
+app.use(cors(corsOpts));
+app.options("*", cors(corsOpts));
 
 app.use(logger("dev"));
 app.use(express.json());
