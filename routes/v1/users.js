@@ -22,17 +22,17 @@ router.get(
       else users = await Users.getAll();
 
       if (!users || users.length === 0)
-        res.status(404).send("Cannot find users.");
+        res.status(404).send({ message: "Cannot find users." });
       else res.status(200).jsonp(users);
     } catch (err) {
       if (err.name.search(/Sequelize/i) !== -1)
-        res.status(409).send(
-          `Error fetching users: ${JSON.stringify({
+        res.status(409).send({
+          message: `Error fetching users: ${JSON.stringify({
             name: err.name,
             message: err.message,
-          })}`
-        );
-      else res.status(500).send(`Error: ${err}`);
+          })}`,
+        });
+      else res.status(500).send({ message: err });
     }
   }
 );
@@ -50,17 +50,19 @@ router.get(
       const user = await Users.getId(req.user.id);
 
       if (!user)
-        res.status(404).send(`User with id "${req.params.id}" do not exist.`);
+        res
+          .status(404)
+          .send({ message: `User with id "${req.params.id}" do not exist.` });
       else res.status(200).jsonp(user);
     } catch (err) {
       if (err.name.search(/Sequelize/i) !== -1)
-        res.status(409).send(
-          `Error fetching user data: ${JSON.stringify({
+        res.status(409).send({
+          message: `Error fetching user data: ${JSON.stringify({
             name: err.name,
             message: err.message,
-          })}`
-        );
-      else res.status(500).send(`Error: ${err}`);
+          })}`,
+        });
+      else res.status(500).send({ message: err });
     }
   }
 );
@@ -80,17 +82,19 @@ router.get(
       else user = await Users.getId(req.params.id);
 
       if (!user)
-        res.status(404).send(`User with id "${req.params.id}" do not exist.`);
+        res
+          .status(404)
+          .send({ message: `User with id "${req.params.id}" do not exist.` });
       else res.status(200).jsonp(user);
     } catch (err) {
       if (err.name.search(/Sequelize/i) !== -1)
-        res.status(409).send(
-          `Error fetching user data: ${JSON.stringify({
+        res.status(409).send({
+          message: `Error fetching user data: ${JSON.stringify({
             name: err.name,
             message: err.message,
-          })}`
-        );
-      else res.status(500).send(`Error: ${err}`);
+          })}`,
+        });
+      else res.status(500).send({ message: err });
     }
   }
 );
@@ -110,19 +114,19 @@ router.get(
       else user = await Users.getUsername(req.params.username);
 
       if (!user)
-        res
-          .status(404)
-          .send(`User with username "${req.params.username}" do not exist.`);
+        res.status(404).send({
+          message: `User with username "${req.params.username}" do not exist.`,
+        });
       else res.status(200).jsonp(user);
     } catch (err) {
       if (err.name.search(/Sequelize/i) !== -1)
-        res.status(409).send(
-          `Error fetching user data: ${JSON.stringify({
+        res.status(409).send({
+          message: `Error fetching user data: ${JSON.stringify({
             name: err.name,
             message: err.message,
-          })}`
-        );
-      else res.status(500).send(`Error: ${err}`);
+          })}`,
+        });
+      else res.status(500).send({ message: err });
     }
   }
 );
@@ -137,19 +141,19 @@ router.post(
     try {
       const user = await Users.insertOne(req.body);
 
-      res
-        .status(201)
-        .send(`User "${user.dataValues.username}" created successful.`);
+      res.status(201).send({
+        message: `User "${user.dataValues.username}" created successful.`,
+      });
     } catch (err) {
       // TODO: Refactor this error
       if (err.name.search(/Sequelize/i) !== -1)
-        res.status(409).send(
-          `Error on user creation: ${JSON.stringify({
+        res.status(409).send({
+          message: `Error on user creation: ${JSON.stringify({
             name: err.name,
             message: err.message,
-          })}`
-        );
-      else res.status(500).send(`Error: ${err}`);
+          })}`,
+        });
+      else res.status(500).send({ message: err });
     }
   }
 );
@@ -158,13 +162,13 @@ router.post(
 router.post("/signup", async (req, res, next) => {
   passport.authenticate("signup", async (err, user, info) => {
     try {
-      if (err) return res.status(500).send(`Error: ${err}`);
+      if (err) return res.status(500).send({ message: err });
 
       if (!user) return res.status(409).send(info);
 
-      return res.status(201).send(info);
+      return res.status(201).send({ message: info });
     } catch (err) {
-      return res.status(500).send(`Error: ${err}`);
+      return res.status(500).send({ message: err });
     }
   })(req, res, next);
 });
@@ -173,7 +177,7 @@ router.post("/signup", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   passport.authenticate("login", async (err, user, info) => {
     try {
-      if (err) return res.status(500).send(`Error: ${err}`);
+      if (err) return res.status(500).send({ message: err });
 
       if (!user) return res.status(404).send(info);
 
@@ -183,7 +187,7 @@ router.post("/login", async (req, res, next) => {
           session: false,
         },
         async err => {
-          if (err) return res.status(500).send(`Error: ${err}`);
+          if (err) return res.status(500).send({ message: err });
 
           const userInfoInToken = {
             id: user.id,
@@ -199,7 +203,7 @@ router.post("/login", async (req, res, next) => {
         }
       );
     } catch (err) {
-      return res.status(500).send(`Error: ${err}`);
+      return res.status(500).send({ message: err });
     }
   })(req, res, next);
 });

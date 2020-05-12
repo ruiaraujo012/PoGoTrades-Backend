@@ -30,12 +30,16 @@ passport.use(
           passwordHash: passwordHash,
         });
 
-        return done(null, newUser, `User ${username} created successfully.`);
+        return done(null, newUser, {
+          message: `User ${username} created successfully.`,
+        });
       } else {
         userExist = userExist.dataValues;
 
         if (userExist.passwordHash) {
-          return done(null, false, `The user ${username} already exists.`);
+          return done(null, false, {
+            message: `The user ${username} already exists.`,
+          });
         } else {
           const passwordHash = await createHash(password);
 
@@ -48,15 +52,13 @@ passport.use(
             }
           );
 
-          return done(
-            null,
-            updatedUser,
-            `User ${username} created successfully.`
-          );
+          return done(null, updatedUser, {
+            message: `User ${username} created successfully.`,
+          });
         }
       }
     } catch (err) {
-      return done(err, false, "Internal error");
+      return done(err, false, { message: "Internal error" });
     }
   })
 );
@@ -76,17 +78,19 @@ passport.use(
       });
 
       if (!userExist) {
-        return done(null, false, "Username or password invalid!");
+        return done(null, false, { message: "Username or password invalid!" });
       } else {
         userExist = userExist.dataValues;
         const valid = await isValidPassword(password, userExist.passwordHash);
 
         if (!valid) {
-          return done(null, false, "Username or password invalid!");
+          return done(null, false, {
+            message: "Username or password invalid!",
+          });
         }
       }
 
-      return done(null, userExist, "Login successful!");
+      return done(null, userExist, { message: "Login successful!" });
     } catch (err) {
       let userExist = await User.findOne({
         limit: 1,
@@ -96,7 +100,7 @@ passport.use(
       });
 
       console.log("userExist :", userExist);
-      return done(err, false, "Internal error");
+      return done(err, false, { message: "Internal error" });
     }
   })
 );
