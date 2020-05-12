@@ -166,7 +166,7 @@ router.post("/signup", async (req, res, next) => {
 
       if (!user) return res.status(409).send(info);
 
-      return res.status(201).send({ message: info });
+      return res.status(201).send(info);
     } catch (err) {
       return res.status(500).send({ message: err });
     }
@@ -197,7 +197,7 @@ router.post("/login", async (req, res, next) => {
           const token = jwtSign(userInfoInToken, "1h");
 
           return res.status(201).jsonp({
-            message: info,
+            ...info,
             token: token,
           });
         }
