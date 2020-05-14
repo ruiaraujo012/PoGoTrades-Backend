@@ -8,6 +8,7 @@ COPY package.json yarn.lock ./
 
 RUN yarn
 RUN yarn global add nodemon
+RUN yarn global add sequelize-cli
 
 COPY . .
 
