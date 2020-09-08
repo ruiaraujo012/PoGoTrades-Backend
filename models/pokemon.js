@@ -20,9 +20,9 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      imageName: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      regional: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
     },
     {

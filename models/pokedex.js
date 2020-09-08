@@ -13,10 +13,6 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
         unique: true,
       },
-      regional: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
     },
     { freezeTableName: true }
   );
