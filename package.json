@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "description": "Trademon API",
   "author": "Rui Araújo <ruiaraujo012@gmail.com>",
+  "contributors": [
+    {
+      "name": "Diogo Sá",
+      "email": "sa.diogoafonso@gmail.com"
+    }
+  ],
   "private": true,
   "scripts": {
     "start": "node ./bin/www",

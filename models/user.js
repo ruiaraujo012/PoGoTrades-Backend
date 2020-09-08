@@ -12,15 +12,6 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       unique: true,
     },
-    level: {
-      type: Sequelize.SMALLINT,
-      allowNull: false,
-      defaultValue: 1,
-      validate: {
-        min: 1,
-        max: 40,
-      },
-    },
     passwordHash: {
       type: Sequelize.TEXT,
       allowNull: true,
@@ -37,13 +28,6 @@ module.exports = (sequelize, Sequelize) => {
   });
 
   User.associate = models => {
-    models.User.belongsTo(models.Team, {
-      foreignKey: {
-        name: "teamName",
-        allowNull: true,
-      },
-    });
-
     models.User.hasMany(models.Trade, {
       foreignKey: {
         name: "trainer1Id",
