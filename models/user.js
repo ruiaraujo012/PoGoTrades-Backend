@@ -25,6 +25,13 @@ module.exports = (sequelize, Sequelize) => {
         max: 1,
       },
     },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        isEmail: true,
+      },
+    },
   });
 
   User.associate = models => {
