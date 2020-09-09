@@ -14,7 +14,7 @@ PoGoTrades is a platform that allow you to save your combined trades with other 
 [Click here to see docker-compose file](https://gist.github.com/ruiaraujo012/ae78454aa84eb8866c1d7cf35dfc7f14)
 
 ## Database model
-![Database model](https://github.com/ruiaraujo012/trademon-backend/blob/master/dbModeling/db_model_dark.png "Database model dark.")
+![Database model](https://github.com/ruiaraujo012/trademon-backend/blob/develop/dbModeling/db_model_dark.png "Database model dark.")
 
 ## Versioning
 
