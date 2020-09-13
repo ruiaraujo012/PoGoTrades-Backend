@@ -74,10 +74,54 @@ Users.getUsername = username => {
     where: {
       username: username,
     },
-    attributes: {
-      exclude: ["passwordHash", "createdAt", "updatedAt"],
-    },
+    attributes: ["username"],
   });
+};
+
+/**
+ * Check if user exist and if true, return the username and if user have password
+ * @param {String} username - Username to find a user
+ * @returns {Object} Corresponded user on database
+ */
+Users.checkUsernameExists = async (username, done) => {
+  let user;
+  try {
+    user = await User.findOne({
+      limit: 1,
+      where: {
+        username: username,
+      },
+      attributes: ["username", "passwordHash"],
+    });
+  } catch (err) {
+    return done(err, null);
+  }
+
+  if (!user) return done(null, { user: false, password: false });
+
+  const data = {
+    user: Boolean(user.dataValues.username),
+    password: Boolean(user.dataValues.passwordHash),
+  };
+
+  return done(null, data);
+};
+
+/**
+ * Create user that already have username on DB
+ * @param {Object} user - User data
+ * @returns {Array} Corresponded user on database
+ */
+Users.createUserAccount = async user => {
+  const passwordHash = await createHash(user.password);
+  return User.update(
+    { passwordHash: user.passwordHash },
+    {
+      where: {
+        username: user.username,
+      },
+    }
+  );
 };
 
 /**
