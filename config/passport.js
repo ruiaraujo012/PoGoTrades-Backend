@@ -4,63 +4,75 @@ const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const bcrypt = require("bcrypt");
 
-const { User } = require("../models/index");
+const { createHash } = require("../utils/password");
 
-const SALT_ROUNDS = 10;
+const { User } = require("../models/index");
+const Users = require("../controllers/v1/user");
 
 /**
  * Passport middleware to handle with user signup
  */
 passport.use(
   "signup",
-  new localStrategy(async (username, password, done) => {
-    try {
-      let userExist = await User.findOne({
-        limit: 1,
-        where: {
-          username: username,
-        },
-      });
+  new localStrategy(
+    {
+      passReqToCallback: true,
+    },
+    async (req, username, password, done) => {
+      const email = req.body.email;
+      let userExist = null;
 
-      if (!userExist) {
-        const passwordHash = await createHash(password);
-
-        const newUser = await User.create({
-          username: username,
-          passwordHash: passwordHash,
+      try {
+        await Users.checkUsernameExists(username, (err, data) => {
+          if (err) throw err;
+          else userExist = data;
         });
+      } catch (err) {
+        return done(err, false);
+      }
 
-        return done(null, newUser, {
-          message: `User ${username} created successfully.`,
-        });
-      } else {
-        userExist = userExist.dataValues;
+      // try {
+      //   const emailExist = await Users.getEmail(email);
 
-        if (userExist.passwordHash) {
-          return done(null, false, {
-            message: `The user ${username} already exists.`,
-          });
-        } else {
+      //   if (emailExist) return;
+      // } catch (err) {
+      //   return done(err, false, { message: "Internal error" });
+      // }
+
+      try {
+        if (!userExist.user) {
           const passwordHash = await createHash(password);
 
-          const updatedUser = await User.update(
-            { passwordHash: passwordHash },
-            {
-              where: {
-                username: username,
-              },
-            }
-          );
+          const newUser = await Users.insertOne({
+            username: username,
+            passwordHash: passwordHash,
+            email: email,
+          });
 
-          return done(null, updatedUser, {
+          return done(null, newUser, {
             message: `User ${username} created successfully.`,
           });
+        } else {
+          if (userExist.password) {
+            return done(null, false, {
+              message: `The user ${username} already exists.`,
+            });
+          } else {
+            const updatedUser = await Users.createUserAccount({
+              username: username,
+              password: password,
+              email: email,
+            });
+            return done(null, updatedUser, {
+              message: `User ${username} created successfully.`,
+            });
+          }
         }
+      } catch (err) {
+        return done(err, false);
       }
-    } catch (err) {
-      return done(err, false, { message: "Internal error" });
     }
-  })
+  )
 );
 
 /**
@@ -124,13 +136,6 @@ passport.use(
     }
   )
 );
-
-/**
- * Generates the password hash
- */
-createHash = password => {
-  return bcrypt.hash(password, SALT_ROUNDS);
-};
 
 /**
  * Check the password hash
