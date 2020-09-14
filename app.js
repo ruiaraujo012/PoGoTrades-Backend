@@ -60,8 +60,21 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/v1/users", usersRouter);
 
-app.use((req, res) => {
-  res.status(404).send("Sorry this page does not exist!");
+app.use((req, res, next) => {
+  const error = new Error("Not found");
+  error.status = 404;
+  next(error);
+});
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).jsonp({
+    status: "Error",
+    error: {
+      statusCode: err.status,
+      message: err.message,
+    },
+  });
+  next();
 });
 
 module.exports = app;
