@@ -5,6 +5,8 @@ const logger = require("morgan");
 const passport = require("passport");
 const cors = require("cors");
 
+const { NotFoundError, BaseError } = require("./errors/error");
+
 const db = require("./models/index").sequelize;
 
 const usersRouter = require("./routes/v1/users");
@@ -61,8 +63,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/v1/users", usersRouter);
 
 app.use((req, res, next) => {
-  const error = new Error("Not found");
-  error.status = 404;
+  // const error = new NotFoundError();
+  const error = new BaseError(400, "Test");
+
   next(error);
 });
 
@@ -70,7 +73,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).jsonp({
     status: "Error",
     error: {
-      statusCode: err.status,
+      status: err.status,
       message: err.message,
     },
   });
