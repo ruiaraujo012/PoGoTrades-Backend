@@ -6,11 +6,32 @@ class BaseError extends Error {
     this.name = this.constructor.name;
     this.status = status;
     this.message = message;
+    this.isOperational = isOperational;
     this.date = new Date();
 
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, BaseError);
     }
+  }
+}
+
+class BadRequest extends BaseError {
+  constructor(
+    status = NOT_FOUND,
+    message = "Bad request.",
+    isOperational = true
+  ) {
+    super(status, message, isOperational);
+  }
+}
+
+class Unauthorized extends BaseError {
+  constructor(
+    status = NOT_FOUND,
+    message = "Unauthorized. You must be logged in to make this request.",
+    isOperational = true
+  ) {
+    super(status, message, isOperational);
   }
 }
 
