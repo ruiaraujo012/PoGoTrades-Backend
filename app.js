@@ -5,7 +5,7 @@ const logger = require("morgan");
 const passport = require("passport");
 const cors = require("cors");
 
-const { NotFoundError, BaseError } = require("./errors/error");
+const { NotFound } = require("./errors/error");
 
 const db = require("./models/index").sequelize;
 
@@ -36,6 +36,7 @@ try {
   db.sync({ force: RECREATE_DB });
 } catch (err) {
   console.error("Unable to connect to the database:", err);
+  process.exit();
 }
 
 const corsOpts = {
@@ -63,15 +64,14 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/v1/users", usersRouter);
 
 app.use((req, res, next) => {
-  // const error = new NotFoundError();
-  const error = new BaseError(400, "Test");
+  const error = new NotFound();
 
   next(error);
 });
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).jsonp({
-    status: "Error",
+    sucess: false,
     error: {
       status: err.status,
       message: err.message,

@@ -10,7 +10,10 @@ module.exports = (sequelize, Sequelize) => {
     username: {
       type: Sequelize.STRING(50),
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: "Username already exist.",
+      },
     },
     passwordHash: {
       type: Sequelize.TEXT,

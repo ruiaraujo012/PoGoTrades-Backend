@@ -8,6 +8,7 @@ const { createHash } = require("../utils/password");
 
 const { User } = require("../models/index");
 const Users = require("../controllers/v1/user");
+const { mappedSequelizeErrors } = require("../errors/helpers");
 
 /**
  * Passport middleware to handle with user signup
@@ -23,13 +24,18 @@ passport.use(
       let userExist = null;
 
       try {
-        await Users.checkUsernameExists(username, (err, data) => {
-          if (err) throw err;
-          else userExist = data;
+        userExist = await User.findOne({
+          where: {
+            username: username,
+          },
+          attributes: ["username", "passwordHash"],
         });
       } catch (err) {
+        console.log("err", err.errors());
         return done(err, false);
       }
+
+      // console.log("userExist", userExist);
 
       // try {
       //   const emailExist = await Users.getEmail(email);
@@ -69,6 +75,8 @@ passport.use(
           }
         }
       } catch (err) {
+        if (err.errors) return done(mappedSequelizeErrors(err.errors), false);
+
         return done(err, false);
       }
     }
