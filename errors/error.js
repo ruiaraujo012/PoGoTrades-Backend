@@ -1,4 +1,9 @@
-const { INTERNAL_SERVER, NOT_FOUND } = require("./statusCode");
+const {
+  INTERNAL_SERVER,
+  NOT_FOUND,
+  NOT_ALLOWED,
+  CONFLICT,
+} = require("./statusCode");
 
 class BaseError extends Error {
   constructor(status, message, isOperational = true) {
@@ -18,7 +23,7 @@ class BaseError extends Error {
 class BadRequest extends BaseError {
   constructor(
     status = NOT_FOUND,
-    message = "Bad request.",
+    message = "Bad request. You must change the request before send it again.",
     isOperational = true
   ) {
     super(status, message, isOperational);
@@ -35,24 +40,59 @@ class Unauthorized extends BaseError {
   }
 }
 
-class APIError extends BaseError {
+class Forbidden extends BaseError {
   constructor(
-    status = INTERNAL_SERVER,
-    message = "Internal server error",
+    status = FORBIDDEN,
+    message = "Forbidden.",
     isOperational = true
   ) {
     super(status, message, isOperational);
   }
 }
 
-class NotFoundError extends BaseError {
-  constructor(status = NOT_FOUND, message = "Not found", isOperational = true) {
+class NotFound extends BaseError {
+  constructor(
+    status = NOT_FOUND,
+    message = "Not found.",
+    isOperational = true
+  ) {
+    super(status, message, isOperational);
+  }
+}
+
+class NotAllowed extends BaseError {
+  constructor(
+    status = NOT_ALLOWED,
+    message = "Not Allowed.",
+    isOperational = true
+  ) {
+    super(status, message, isOperational);
+  }
+}
+
+class Conflict extends BaseError {
+  constructor(status = CONFLICT, message = "Conflict.", isOperational = true) {
+    super(status, message, isOperational);
+  }
+}
+
+class InternalServer extends BaseError {
+  constructor(
+    status = INTERNAL_SERVER,
+    message = "Internal server error.",
+    isOperational = true
+  ) {
     super(status, message, isOperational);
   }
 }
 
 module.exports = {
   BaseError,
-  APIError,
-  NotFoundError,
+  BadRequest,
+  Unauthorized,
+  Forbidden,
+  NotFound,
+  NotAllowed,
+  Conflict,
+  InternalServer,
 };
