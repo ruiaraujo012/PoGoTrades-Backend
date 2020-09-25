@@ -4,11 +4,13 @@ const JWTStrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const bcrypt = require("bcrypt");
 
-const { createHash } = require("../utils/password");
-
 const { User } = require("../models/index");
 const Users = require("../controllers/v1/user");
-const { mappedSequelizeErrors } = require("../errors/helpers");
+
+const { Conflict } = require("../http/error");
+
+const { mappedSequelizeErrors } = require("../http/helpers");
+const { createHash } = require("../utils/password");
 
 /**
  * Passport middleware to handle with user signup
@@ -24,57 +26,79 @@ passport.use(
       let userExist = null;
 
       try {
-        userExist = await User.findOne({
+        const user = await User.findOne({
           where: {
             username: username,
           },
           attributes: ["username", "passwordHash"],
         });
+        userExist = user;
       } catch (err) {
-        console.log("err", err.errors());
+        if (err.errors) return done(mappedSequelizeErrors(err.errors), false);
         return done(err, false);
       }
 
-      // console.log("userExist", userExist);
+      try {
+        const emailExist = await User.findOne({
+          where: { email: email },
+          attributes: ["email"],
+        });
 
-      // try {
-      //   const emailExist = await Users.getEmail(email);
+        console.log("emailExist", emailExist);
 
-      //   if (emailExist) return;
-      // } catch (err) {
-      //   return done(err, false, { message: "Internal error" });
-      // }
+        if (emailExist) throw new Conflict("Email already in use.");
+      } catch (err) {
+        if (err.errors) return done(mappedSequelizeErrors(err.errors), false);
+        return done(err, false);
+      }
 
       try {
-        if (!userExist.user) {
-          const passwordHash = await createHash(password);
+        console.log("userExist", userExist);
+        let currentUsername, currentPasswordHash;
 
-          const newUser = await Users.insertOne({
+        const newPasswordHash = await createHash(password);
+
+        if (userExist) {
+          currentUsername = userExist.dataValues.username;
+          currentPasswordHash = userExist.dataValues.passwordHash;
+        } else {
+          currentUsername = null;
+          currentPasswordHash = null;
+        }
+
+        if (currentUsername && currentPasswordHash) {
+          throw new Conflict(
+            `User with username ${currentUsername} alreary exist. Try login.`
+          );
+        } else if (currentUsername && !currentPasswordHash) {
+          const updatedUser = User.update(
+            { passwordHash: newPasswordHash },
+            {
+              where: {
+                username: username,
+              },
+            }
+          );
+
+          console.log("updatedUser", updatedUser);
+          return done(null, updatedUser);
+        } else {
+          const createdUser = await User.create({
             username: username,
-            passwordHash: passwordHash,
+            passwordHash: newPasswordHash,
             email: email,
           });
 
-          return done(null, newUser, {
-            message: `User ${username} created successfully.`,
-          });
-        } else {
-          if (userExist.password) {
-            return done(null, false, {
-              message: `The user ${username} already exists.`,
-            });
-          } else {
-            const updatedUser = await Users.createUserAccount({
-              username: username,
-              password: password,
-              email: email,
-            });
-            return done(null, updatedUser, {
-              message: `User ${username} created successfully.`,
-            });
-          }
+          console.log("createdUser", createdUser);
+
+          return done(
+            null,
+            createdUser,
+            `User ${username} created successfully.`
+          );
         }
       } catch (err) {
+        console.log("err", err);
         if (err.errors) return done(mappedSequelizeErrors(err.errors), false);
 
         return done(err, false);

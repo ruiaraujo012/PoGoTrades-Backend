@@ -2,6 +2,7 @@ const express = require("express");
 const passport = require("passport");
 
 const { jwtSign } = require("../../utils/jwt");
+const { SuccessCreated } = require("../../http/success");
 
 const router = express.Router();
 
@@ -162,13 +163,18 @@ router.post(
 router.post("/signup", async (req, res, next) => {
   passport.authenticate("signup", async (err, user, info) => {
     try {
-      if (err) return res.status(500).send({ message: err });
+      if (err) next(err);
 
-      if (!user) return res.status(409).send(info);
-
-      return res.status(201).send(info);
+      return res
+        .status(201)
+        .jsonp(
+          new SuccessCreated(info, {
+            username: user.username,
+            email: user.email,
+          })
+        );
     } catch (err) {
-      return res.status(500).send({ message: err });
+      next(err);
     }
   })(req, res, next);
 });
