@@ -5,7 +5,7 @@ const logger = require("morgan");
 const passport = require("passport");
 const cors = require("cors");
 
-const { NotFound } = require("./errors/error");
+const { NotFound } = require("./http/error");
 
 const db = require("./models/index").sequelize;
 

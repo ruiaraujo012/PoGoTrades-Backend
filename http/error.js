@@ -3,10 +3,11 @@ const {
   NOT_FOUND,
   NOT_ALLOWED,
   CONFLICT,
+  UNAUTHORIZED,
 } = require("./statusCode");
 
 class BaseError extends Error {
-  constructor(status, message, isOperational = true) {
+  constructor(message, status, isOperational = true) {
     super();
     this.name = this.constructor.name;
     this.status = status;
@@ -22,67 +23,67 @@ class BaseError extends Error {
 
 class BadRequest extends BaseError {
   constructor(
-    status = NOT_FOUND,
     message = "Bad request. You must change the request before send it again.",
+    status = BAD_REQUEST,
     isOperational = true
   ) {
-    super(status, message, isOperational);
+    super(message, status, isOperational);
   }
 }
 
 class Unauthorized extends BaseError {
   constructor(
-    status = NOT_FOUND,
     message = "Unauthorized. You must be logged in to make this request.",
+    status = UNAUTHORIZED,
     isOperational = true
   ) {
-    super(status, message, isOperational);
+    super(message, status, isOperational);
   }
 }
 
 class Forbidden extends BaseError {
   constructor(
-    status = FORBIDDEN,
     message = "Forbidden.",
+    status = FORBIDDEN,
     isOperational = true
   ) {
-    super(status, message, isOperational);
+    super(message, status, isOperational);
   }
 }
 
 class NotFound extends BaseError {
   constructor(
-    status = NOT_FOUND,
     message = "Not found.",
+    status = NOT_FOUND,
     isOperational = true
   ) {
-    super(status, message, isOperational);
+    super(message, status, isOperational);
   }
 }
 
 class NotAllowed extends BaseError {
   constructor(
-    status = NOT_ALLOWED,
     message = "Not Allowed.",
+    status = NOT_ALLOWED,
     isOperational = true
   ) {
-    super(status, message, isOperational);
+    super(message, status, isOperational);
   }
 }
 
 class Conflict extends BaseError {
-  constructor(status = CONFLICT, message = "Conflict.", isOperational = true) {
-    super(status, message, isOperational);
+  constructor(message = "Conflict.", status = CONFLICT, isOperational = true) {
+    super(message, status, isOperational);
   }
 }
 
 class InternalServer extends BaseError {
   constructor(
-    status = INTERNAL_SERVER,
     message = "Internal server error.",
+    status = INTERNAL_SERVER,
     isOperational = true
   ) {
-    super(status, message, isOperational);
+    super(message, status, isOperational);
   }
 }
 
